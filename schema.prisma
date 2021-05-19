@@ -1,0 +1,105 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Student {
+  id              Int               @id @default(autoincrement())
+  uniCode         String            @unique @default(uuid())
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  fname           String            @db.VarChar(255)
+  lname           String            @db.VarChar(255)
+  gender          Gender?
+  password        String?           @default(uuid())
+  email           String            @unique
+  level           Int?
+  semester        Semester?
+  major           String?
+  creditDone      Int?
+  creditHave      Int?
+  supervisorId    Int?
+  supervisor      Supervisor?       @relation(fields: [supervisorId], references: [id])
+  coursesFinished FinishedCourses[]
+  GPA             Float?
+  lastTermGPA     Float?
+  enrollments     Enrollment[]
+
+
+}
+
+model Supervisor {
+  id          Int          @id @default(autoincrement())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  fname       String       @db.VarChar(255)
+  lname       String       @db.VarChar(255)
+  phone       String?
+  gender      Gender?
+  password    String?      @default(uuid())
+  email       String       @unique
+  students    Student[]
+  enrollments Enrollment[]
+}
+
+model Course {
+  id               Int               @id @default(autoincrement())
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  name             String
+  major            String?           @default("MIS")
+  level            Int?
+  discreption      String?
+  credit           Int?
+  available        Boolean           @default(true)
+  courseCode       String            @default(uuid())
+  prerequisites    Course[]          @relation("CoursePrerequisites", references: [id])
+  prerequisitedBy  Course[]          @relation("CoursePrerequisites", references: [id])
+  studentsFinished FinishedCourses[]
+  enrollments      Enrollment[]
+
+
+}
+
+model Enrollment {
+  id           Int         @id @default(autoincrement())
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  supervisor   Supervisor? @relation(fields: [supervisorId], references: [id])
+  supervisorId Int?
+  student      Student?    @relation(fields: [studentID], references: [id])
+  studentID    Int?
+  course       Course?     @relation(fields: [courseID], references: [id])
+  courseID     Int?
+  isAproved    Boolean     @default(false)
+  status       String      @default("in review")
+}
+
+model FinishedCourses {
+  course         Course    @relation(fields: [courseId], references: [id])
+  courseId       Int
+  student        Student   @relation(fields: [studentID], references: [id])
+  studentID      Int
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  grade          Float?
+  semester       Semester?
+  instructorName String?
+
+  @@id([courseId, studentID])
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum Semester {
+  FALL
+  SPRING
+  SUMMER
+}
