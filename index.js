@@ -547,7 +547,9 @@ app.put("/course/:id/prerequisites", async (req, res) => {
 });
 
 //creat finished course , == end enrollment by adding result
-app.post("/finishedcourse", async (req, res) => {
+app.post("/enrollment/:id/addresult", async (req, res) => {
+  const { id } = req.params;
+
   const { courseId, studentID, grade, semester, instructorName } = req.body;
   try {
     const createFinishedCourse = await prisma.finishedCourses.create({
@@ -559,6 +561,11 @@ app.post("/finishedcourse", async (req, res) => {
         instructorName,
       },
     });
+
+    const deleteEnrollment = await prisma.enrollment.delete({
+      where: { id: Number(id) },
+    });
+
     res.json(createFinishedCourse);
   } catch (err) {
     res.json({ error: "wrong data", errMsg: err });

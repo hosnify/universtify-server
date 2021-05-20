@@ -56,7 +56,7 @@ model Course {
   discreption      String?
   credit           Int?
   available        Boolean           @default(true)
-  courseCode       String            @default(uuid())
+  courseCode       String?
   prerequisites    Course[]          @relation("CoursePrerequisites", references: [id])
   prerequisitedBy  Course[]          @relation("CoursePrerequisites", references: [id])
   studentsFinished FinishedCourses[]
@@ -80,6 +80,7 @@ model Enrollment {
 }
 
 model FinishedCourses {
+  id             Int       @id @default(autoincrement())
   course         Course    @relation(fields: [courseId], references: [id])
   courseId       Int
   student        Student   @relation(fields: [studentID], references: [id])
@@ -90,7 +91,7 @@ model FinishedCourses {
   semester       Semester?
   instructorName String?
 
-  @@id([courseId, studentID])
+
 }
 
 enum Gender {
