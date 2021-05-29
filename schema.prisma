@@ -28,22 +28,25 @@ model Student {
   GPA             Float?
   lastTermGPA     Float?
   enrollments     Enrollment[]
+  notifications   Notifications[]
 
 
 }
 
 model Supervisor {
-  id          Int          @id @default(autoincrement())
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  fname       String       @db.VarChar(255)
-  lname       String       @db.VarChar(255)
-  phone       String?
-  gender      Gender?
-  password    String?      @default(uuid())
-  email       String       @unique
-  students    Student[]
-  enrollments Enrollment[]
+  id            Int             @id @default(autoincrement())
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  fname         String          @db.VarChar(255)
+  lname         String          @db.VarChar(255)
+  phone         String?
+  gender        Gender?
+  password      String?         @default(uuid())
+  email         String          @unique
+  students      Student[]
+  enrollments   Enrollment[]
+  notifications Notifications[]
+
 }
 
 model Course {
@@ -94,11 +97,17 @@ model FinishedCourses {
 
 }
 
-model notifications {
-  id         Int  @id @default(autoincrement())
-  receiverId Int
-  status     Int
-  data       Json
+model Notifications {
+  id           Int         @id @default(autoincrement())
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  supervisor   Supervisor? @relation(fields: [supervisorId], references: [id])
+  supervisorId Int?
+  student      Student?    @relation(fields: [studentID], references: [id])
+  studentID    Int?
+  status       Int?        @default(0)
+  data         Json
+
 }
 
 enum Gender {
