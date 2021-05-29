@@ -94,6 +94,13 @@ model FinishedCourses {
 
 }
 
+model notifications {
+  id         Int  @id @default(autoincrement())
+  receiverId Int
+  status     Int
+  data       Json
+}
+
 enum Gender {
   MALE
   FEMALE

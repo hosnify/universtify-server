@@ -22,29 +22,28 @@ router.post("/student", async (req, res) => {
     GPA,
     lastTermGPA,
   } = req.body;
-  // try {
-  const createStudent = await prisma.student.create({
-    data: {
-      fname,
-      lname,
-      gender,
-      password,
-      email,
-      level: Number(level),
-      program,
-      major,
-      creditDone: Number(creditDone),
-      creditHave: Number(creditHave),
-      supervisorId: Number(supervisorId),
-      GPA: Number(GPA),
-      lastTermGPA: Number(lastTermGPA),
-    },
-  });
-  res.json(createStudent);
-  // } catch (err) {
-  //   res.json({ error: "wrong data", errMsg: err });
-
-  // }
+  try {
+    const createStudent = await prisma.student.create({
+      data: {
+        fname,
+        lname,
+        gender,
+        password,
+        email,
+        level: Number(level),
+        program,
+        major,
+        creditDone: Number(creditDone),
+        creditHave: Number(creditHave),
+        supervisorId: Number(supervisorId),
+        GPA: Number(GPA),
+        lastTermGPA: Number(lastTermGPA),
+      },
+    });
+    res.json(createStudent);
+  } catch (err) {
+    res.json({ error: "wrong data", errMsg: err });
+  }
 });
 
 //GET all students
