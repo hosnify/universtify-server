@@ -7,6 +7,17 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model Major {
+  id            Int       @id @default(autoincrement())
+  code          String    @unique
+  name          String?
+  majorStudents Student[] @relation("MajorStudents")
+  minorStudents Student[] @relation("MinorStudents")
+  majorCourses  Course[]  @relation("MajorCourses")
+  minorCourses  Course[]  @relation("MinorCourses")
+
+}
+
 model Student {
   id              Int               @id @default(autoincrement())
   uniCode         String            @unique @default(uuid())
@@ -19,7 +30,6 @@ model Student {
   email           String            @unique
   level           Int?
   semester        Semester?
-  major           String?
   creditDone      Int?
   creditHave      Int?
   supervisorId    Int?
@@ -29,7 +39,10 @@ model Student {
   lastTermGPA     Float?
   enrollments     Enrollment[]
   notifications   Notifications[]
-
+  majorId         Int?
+  major           Major?            @relation("MajorStudents", fields: [majorId], references: [id])
+  minorId         Int?
+  minor           Major?            @relation("MinorStudents", fields: [majorId], references: [id])
 
 }
 
@@ -54,7 +67,6 @@ model Course {
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
   name             String
-  major            String?           @default("MIS")
   level            Int?
   discreption      String?
   credit           Int?
@@ -64,8 +76,10 @@ model Course {
   prerequisitedBy  Course[]          @relation("CoursePrerequisites", references: [id])
   studentsFinished FinishedCourses[]
   enrollments      Enrollment[]
-
-
+  majorId          Int?
+  major            Major?            @relation("MajorCourses", fields: [majorId], references: [id])
+  minorId          Int?
+  minor            Major?            @relation("MinorCourses", fields: [minorId], references: [id])
 }
 
 model Enrollment {

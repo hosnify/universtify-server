@@ -35,7 +35,7 @@ router.get("/enrollments", async (req, res) => {
           },
         },
       },
-      orderBy: [{ updatedAt: "desc" }],
+      orderBy: [{ id: "desc" }],
     });
     res.json(enrollments);
   } catch (err) {

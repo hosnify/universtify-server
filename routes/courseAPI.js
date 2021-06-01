@@ -86,7 +86,7 @@ router.get("/course/:id/enrollments", async (req, res) => {
               },
             },
           },
-          orderBy: [{ updatedAt: "desc" }],
+          orderBy: [{ id: "desc" }],
         },
       },
     });

@@ -53,6 +53,7 @@ router.get("/students", async (req, res) => {
       include: {
         coursesFinished: { include: { course: true } },
         enrollments: true,
+        notifications: { orderBy: [{ createdAt: "desc" }] },
       },
     });
     res.json(students);
@@ -63,7 +64,7 @@ router.get("/students", async (req, res) => {
 
 //GET user
 router.post("/user", async (req, res) => {
-  const { email, password } = req.body;
+  const { email } = req.body;
   try {
     let user = await prisma.student.findUnique({
       where: { email: email.toString() },
@@ -97,6 +98,7 @@ router.get("/student/:id", async (req, res) => {
       include: {
         coursesFinished: { include: { course: true } },
         enrollments: true,
+        notifications: { orderBy: [{ createdAt: "desc" }] },
       },
     });
     res.json(student);
@@ -135,6 +137,7 @@ router.get("/student/:id/enrollments", async (req, res) => {
             course: true,
             student: {
               select: {
+                id: true,
                 fname: true,
                 lname: true,
               },
@@ -146,6 +149,7 @@ router.get("/student/:id/enrollments", async (req, res) => {
               },
             },
           },
+          orderBy: [{ id: "desc" }],
         },
       },
     });

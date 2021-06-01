@@ -6,7 +6,12 @@ const prisma = new PrismaClient();
 //GET all supervisors
 router.get("/supervisors", async (req, res) => {
   try {
-    const supervisors = await prisma.supervisor.findMany();
+    const supervisors = await prisma.supervisor.findMany({
+      include: {
+        students: true,
+        notifications: { orderBy: [{ createdAt: "desc" }] },
+      },
+    });
     res.json(supervisors);
   } catch (err) {
     res.json({ error: "wrong data", errMsg: err });
@@ -19,6 +24,10 @@ router.get("/supervisor/:id", async (req, res) => {
   try {
     const supervisor = await prisma.supervisor.findUnique({
       where: { id: Number(id) },
+      include: {
+        students: true,
+        notifications: { orderBy: [{ createdAt: "desc" }] },
+      },
     });
     res.json(supervisor);
   } catch (err) {
@@ -61,9 +70,5 @@ router.put("/supervisor/:id/password", async (req, res) => {
     });
   }
 });
-
-/////////////////////////////////////////////
-////////////////////////////////////////////
-///////////////////////////////////////////
 
 module.exports = router;
