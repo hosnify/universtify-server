@@ -37,12 +37,13 @@ model Student {
   coursesFinished FinishedCourses[]
   GPA             Float?
   lastTermGPA     Float?
+  avatar          String?
   enrollments     Enrollment[]
   notifications   Notifications[]
   majorId         Int?
   major           Major?            @relation("MajorStudents", fields: [majorId], references: [id])
   minorId         Int?
-  minor           Major?            @relation("MinorStudents", fields: [majorId], references: [id])
+  minor           Major?            @relation("MinorStudents", fields: [minorId], references: [id])
 
 }
 
@@ -56,6 +57,7 @@ model Supervisor {
   gender        Gender?
   password      String?         @default(uuid())
   email         String          @unique
+  avatar        String?
   students      Student[]
   enrollments   Enrollment[]
   notifications Notifications[]
