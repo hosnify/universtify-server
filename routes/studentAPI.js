@@ -15,7 +15,8 @@ router.post("/student", async (req, res) => {
     level,
     semester,
     program,
-    major,
+    majorid,
+    minorid,
     creditDone,
     creditHave,
     supervisorId,
@@ -32,7 +33,8 @@ router.post("/student", async (req, res) => {
         email,
         level: Number(level),
         program,
-        major,
+        majorid: Number(majorid),
+        minorid: Number(minorid),
         creditDone: Number(creditDone),
         creditHave: Number(creditHave),
         supervisorId: Number(supervisorId),
@@ -54,6 +56,8 @@ router.get("/students", async (req, res) => {
         coursesFinished: { include: { course: true } },
         enrollments: true,
         notifications: { orderBy: [{ createdAt: "desc" }] },
+        major: true,
+        minor: true,
       },
     });
     res.json(students);
@@ -99,6 +103,8 @@ router.get("/student/:id", async (req, res) => {
         coursesFinished: { include: { course: true } },
         enrollments: true,
         notifications: { orderBy: [{ createdAt: "desc" }] },
+        major: true,
+        minor: true,
       },
     });
     res.json(student);
@@ -115,7 +121,7 @@ router.get("/student/:id/courses", async (req, res) => {
       where: { id: Number(id) },
       select: {
         coursesFinished: {
-          include: { course: true },
+          include: { course: { include: { major: true, minor: true } } },
         },
       },
     });
@@ -134,7 +140,7 @@ router.get("/student/:id/enrollments", async (req, res) => {
       select: {
         enrollments: {
           include: {
-            course: true,
+            course: { include: { major: true, minor: true } },
             student: {
               select: {
                 id: true,
