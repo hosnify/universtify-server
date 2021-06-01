@@ -18,6 +18,8 @@ router.get("/enrollments", async (req, res) => {
           select: {
             id: true,
             name: true,
+            major: true,
+            minor: true,
           },
         },
         student: {
