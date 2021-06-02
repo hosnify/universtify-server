@@ -12,16 +12,9 @@ router.post("/student", async (req, res) => {
     gender,
     password,
     email,
-    level,
-    semester,
-    program,
-    majorid,
-    minorid,
-    creditDone,
-    creditHave,
+    majorId,
+    minorId,
     supervisorId,
-    GPA,
-    lastTermGPA,
   } = req.body;
   try {
     const createStudent = await prisma.student.create({
@@ -31,15 +24,9 @@ router.post("/student", async (req, res) => {
         gender,
         password,
         email,
-        level: Number(level),
-        program,
-        majorid: Number(majorid),
-        minorid: Number(minorid),
-        creditDone: Number(creditDone),
-        creditHave: Number(creditHave),
+        majorId: Number(majorId),
+        minorId: Number(minorId),
         supervisorId: Number(supervisorId),
-        GPA: Number(GPA),
-        lastTermGPA: Number(lastTermGPA),
       },
     });
     res.json(createStudent);
@@ -59,6 +46,7 @@ router.get("/students", async (req, res) => {
         major: true,
         minor: true,
       },
+      orderBy: [{ id: "asc" }],
     });
     res.json(students);
   } catch (err) {

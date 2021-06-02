@@ -8,6 +8,7 @@ const enrollmentRouter = require("./routes/enrollmentAPI");
 const studentRouter = require("./routes/studentAPI");
 const supervisorRouter = require("./routes/supervisorAPI");
 const notificationRouter = require("./routes/notificationAPI");
+const majorRouter = require("./routes/majorAPI");
 
 const prisma = new PrismaClient();
 const app = express();
@@ -21,6 +22,7 @@ app.use(enrollmentRouter);
 app.use(studentRouter);
 app.use(supervisorRouter);
 app.use(notificationRouter);
+app.use(majorRouter);
 
 app.use("/api", authRouter);
 

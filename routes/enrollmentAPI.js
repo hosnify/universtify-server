@@ -27,6 +27,7 @@ router.get("/enrollments", async (req, res) => {
             id: true,
             fname: true,
             lname: true,
+            supervisorId: true,
           },
         },
         supervisor: {
@@ -68,6 +69,7 @@ router.get("/enrollment/:id", async (req, res) => {
             id: true,
             fname: true,
             lname: true,
+            supervisorId: true,
           },
         },
         supervisor: {
@@ -85,6 +87,37 @@ router.get("/enrollment/:id", async (req, res) => {
   }
 });
 
+router.get("/student/:id/enrolledCourses", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const studentEnrolledCourses = await prisma.enrollment.findMany({
+      where: {
+        AND: [{ status: "enrolled" }, { studentID: Number(id) }],
+      },
+      include: {
+        course: { include: { major: true, minor: true } },
+        student: {
+          select: {
+            id: true,
+            fname: true,
+            lname: true,
+            supervisorId: true,
+          },
+        },
+        supervisor: {
+          select: {
+            fname: true,
+            lname: true,
+          },
+        },
+      },
+      orderBy: [{ id: "desc" }],
+    });
+    res.json(studentEnrolledCourses);
+  } catch (err) {
+    res.json({ error: "wrong data", errMsg: err });
+  }
+});
 //creat enrollment
 router.post("/enrollment", async (req, res) => {
   const { supervisorId, isAproved, studentID, courseID } = req.body;

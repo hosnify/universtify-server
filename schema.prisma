@@ -28,15 +28,15 @@ model Student {
   gender          Gender?
   password        String?           @default(uuid())
   email           String            @unique
-  level           Int?
+  level           Int?              @default(1)
   semester        Semester?
-  creditDone      Int?
-  creditHave      Int?
+  creditDone      Int?              @default(0)
+  creditHave      Int?              @default(18)
   supervisorId    Int?
   supervisor      Supervisor?       @relation(fields: [supervisorId], references: [id])
   coursesFinished FinishedCourses[]
-  GPA             Float?
-  lastTermGPA     Float?
+  GPA             Float?            @default(0)
+  lastTermGPA     Float?            @default(0)
   avatar          String?
   enrollments     Enrollment[]
   notifications   Notifications[]

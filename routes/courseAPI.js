@@ -35,6 +35,8 @@ router.get("/courses", async (req, res) => {
           },
           orderBy: [{ updatedAt: "desc" }],
         },
+        major: true,
+        minor: true,
       },
     });
     res.json(courses);
@@ -49,6 +51,7 @@ router.get("/course/:id", async (req, res) => {
   try {
     const course = await prisma.course.findUnique({
       where: { id: Number(id) },
+      include: { major: true, minor: true },
     });
     res.json(course);
   } catch (err) {
@@ -97,14 +100,14 @@ router.get("/course/:id/enrollments", async (req, res) => {
 });
 
 //GET all courses for spacific level and major
-router.get("/courses/:major/:level", async (req, res) => {
+router.get("/courses/major/:major/:level", async (req, res) => {
   const { major, level } = req.params;
   try {
     const courses = await prisma.course.findMany({
       where: {
         AND: [
           {
-            major: major.toUpperCase(),
+            major: { code: major.toUpperCase() },
           },
           {
             level: Number(level),
@@ -114,6 +117,36 @@ router.get("/courses/:major/:level", async (req, res) => {
       include: {
         prerequisites: true,
         prerequisitedBy: true,
+        major: true,
+        minor: true,
+      },
+    });
+    res.json(courses);
+  } catch (err) {
+    res.json({ error: "wrong data", errMsg: err });
+  }
+});
+
+//GET all courses for spacific level and minor
+router.get("/courses/minor/:minor/:level", async (req, res) => {
+  const { minor, level } = req.params;
+  try {
+    const courses = await prisma.course.findMany({
+      where: {
+        AND: [
+          {
+            minor: { code: minor.toUpperCase() },
+          },
+          {
+            level: Number(level),
+          },
+        ],
+      },
+      include: {
+        prerequisites: true,
+        prerequisitedBy: true,
+        major: true,
+        minor: true,
       },
     });
     res.json(courses);
@@ -124,7 +157,8 @@ router.get("/courses/:major/:level", async (req, res) => {
 
 //creat course
 router.post("/course", async (req, res) => {
-  const { name, credit, discreption, courseCode, level, major } = req.body;
+  const { name, credit, discreption, courseCode, level, majorId, minorId } =
+    req.body;
   try {
     const createCourse = await prisma.course.create({
       data: {
@@ -133,7 +167,8 @@ router.post("/course", async (req, res) => {
         discreption,
         courseCode,
         level: Number(level),
-        major,
+        majorId: Number(majorId),
+        minorId: Number(minorId),
       },
     });
     res.json(createCourse);

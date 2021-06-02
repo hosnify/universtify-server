@@ -7,10 +7,7 @@ const prisma = new PrismaClient();
 router.get("/supervisors", async (req, res) => {
   try {
     const supervisors = await prisma.supervisor.findMany({
-      include: {
-        students: true,
-        notifications: { orderBy: [{ createdAt: "desc" }] },
-      },
+      orderBy: [{ fname: "desc" }],
     });
     res.json(supervisors);
   } catch (err) {
