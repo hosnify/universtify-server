@@ -22,12 +22,17 @@ const studentData = Array.from({ length: 100 }).map(() => ({
   email: faker.internet.email(),
   level: faker.datatype.number({ min: 1, max: 5 }),
   semester: "SUMMER",
-  major: "MIS",
+  majorId: 1,
+  minorId: 2,
   creditDone: faker.datatype.number({ min: 20, max: 200 }),
   creditHave: faker.datatype.number({ min: 12, max: 20 }),
   supervisorId: faker.datatype.number({ min: 1, max: 99 }),
   GPA: faker.datatype.float({ min: 0, max: 4, precision: 0.2 }),
   lastTermGPA: faker.datatype.float({ min: 0, max: 4, precision: 0.2 }),
+  avatar: `/static/images/avatars/avatar_${faker.datatype.number({
+    min: 0,
+    max: 6,
+  })}.png`,
 }));
 const supervisorData = Array.from({ length: 100 }).map(() => ({
   fname: arabicNames[faker.datatype.number({ min: 0, max: 10 })],
@@ -35,14 +40,24 @@ const supervisorData = Array.from({ length: 100 }).map(() => ({
   gender: "MALE",
   password: faker.internet.password(),
   email: faker.internet.email(),
-  phone: faker.phone.phoneFormats(),
+  phone: faker.phone.phoneNumber(),
+  avatar: `/static/images/avatars/avatar_${faker.datatype.number({
+    min: 0,
+    max: 6,
+  })}.png`,
 }));
+const MajorData = [
+  { name: "management information system", code: "MIS" },
+  { name: "human resource", code: "HR" },
+];
 const courseData = Array.from({ length: 200 }).map(() => ({
   name: faker.commerce.productName(),
   level: faker.datatype.number({ min: 1, max: 5 }),
   discreption: faker.lorem.paragraph(5),
   credit: faker.datatype.number({ min: 1, max: 4 }),
   courseCode: "MIS" + faker.datatype.number(100).toString(),
+  majorId: 1,
+  minorId: [1, null][faker.datatype.number({ min: 0, max: 1 })],
 }));
 
 const finishedCoursesData = Array.from({ length: 100 }).map(() => ({
@@ -59,15 +74,9 @@ const finishedCoursesData = Array.from({ length: 100 }).map(() => ({
     arabicNames[faker.datatype.number({ min: 0, max: 10 })],
 }));
 
-const enrollmentData = Array.from({ length: 100 }).map(() => ({
-  supervisorId: faker.datatype.number({ min: 1, max: 100 }),
-  studentID: faker.datatype.number({ min: 1, max: 100 }),
-  courseID: faker.datatype.number({ min: 10, max: 50 }),
-}));
-
 async function main() {
-  const createManyCourses = await prisma.course.createMany({
-    data: courseData,
+  const createManyMajors = await prisma.major.createMany({
+    data: MajorData,
   });
   const createManySuperVisors = await prisma.supervisor
     .createMany({
@@ -76,6 +85,7 @@ async function main() {
     .then(async () => {
       const createManyCourses = await prisma.course.createMany({
         data: courseData,
+        skipDuplicates: true,
       });
     })
     .then(async () => {
@@ -83,12 +93,7 @@ async function main() {
         data: studentData,
       });
     })
-    .then(async () => {
-      const createManyEnrollments = await prisma.enrollment.createMany({
-        data: enrollmentData,
-        skipDuplicates: true,
-      });
-    })
+
     .then(async () => {
       const createManyFinishedCourses = await prisma.finishedCourses.createMany(
         {
@@ -101,14 +106,14 @@ async function main() {
     data: finishedCoursesData,
     skipDuplicates: true,
   });
-  for (let level = 2; level <= 5; level++) {
-    const getStudentBylevel = (await prisma.student.findMany()).map(
-      (student) => student.id
-    );
-    const getcoursesBylevel = (
-      await prisma.course.findMany({ where: { level: level - 1 } })
-    ).map((course) => course.id);
-  }
+  // for (let level = 2; level <= 5; level++) {
+  //   const getStudentBylevel = (await prisma.student.findMany()).map(
+  //     (student) => student.id
+  //   );
+  //   const getcoursesBylevel = (
+  //     await prisma.course.findMany({ where: { level: level - 1 } })
+  //   ).map((course) => course.id);
+  // }
 
   for (let level = 2; level <= 5; level++) {
     const getCoursesByLevel = (
