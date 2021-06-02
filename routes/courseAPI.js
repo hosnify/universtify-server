@@ -168,7 +168,7 @@ router.post("/course", async (req, res) => {
         courseCode,
         level: Number(level),
         majorId: Number(majorId),
-        minorId: Number(minorId),
+        minorId: minorId ? Number(minorId) : minorId,
       },
     });
     res.json(createCourse);
