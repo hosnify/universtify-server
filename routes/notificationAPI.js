@@ -25,7 +25,7 @@ router.post("/student/:id/notification", async (req, res) => {
 //Create notification for supervisor
 router.post("/supervisor/:id/notification", async (req, res) => {
   const { id } = req.params;
-  const data = ({ title, senderName, text } = req.body);
+  const { data } = req.body;
   try {
     const createNotification = await prisma.notifications.create({
       data: {
