@@ -105,14 +105,17 @@ router.get("/courses/major/:major/:level", async (req, res) => {
   try {
     const courses = await prisma.course.findMany({
       where: {
-        AND: [
+        OR: [
           {
             major: { code: major.toUpperCase() },
           },
           {
-            level: Number(level),
+            major: { code: "GENERAL" },
           },
         ],
+        AND: {
+          level: Number(level),
+        },
       },
       include: {
         prerequisites: true,
