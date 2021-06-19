@@ -15,6 +15,7 @@ router.post("/student", async (req, res) => {
     majorId,
     minorId,
     supervisorId,
+    coordinatorId,
   } = req.body;
   try {
     const createStudent = await prisma.student.create({
@@ -27,6 +28,7 @@ router.post("/student", async (req, res) => {
         majorId: Number(majorId),
         minorId: Number(minorId),
         supervisorId: Number(supervisorId),
+        coordinatorId: Number(coordinatorId),
       },
     });
     res.json(createStudent);

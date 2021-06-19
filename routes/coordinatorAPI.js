@@ -3,68 +3,67 @@ const { PrismaClient } = require("@prisma/client");
 
 const router = express.Router();
 const prisma = new PrismaClient();
-//GET all supervisors
-router.get("/supervisors", async (req, res) => {
+//GET all coordinators
+router.get("/coordinators", async (req, res) => {
   try {
-    const supervisors = await prisma.supervisor.findMany({
+    const coordinators = await prisma.coordinator.findMany({
       orderBy: [{ fname: "desc" }],
     });
-    res.json(supervisors);
+    res.json(coordinators);
   } catch (err) {
     res.json({ error: "wrong data", errMsg: err });
   }
 });
 
-//GET supervisor by id
-router.get("/supervisor/:id", async (req, res) => {
+//GET coordinator by id
+router.get("/coordinator/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const supervisor = await prisma.supervisor.findUnique({
+    const coordinator = await prisma.coordinator.findUnique({
       where: { id: Number(id) },
       include: {
         students: true,
         notifications: { orderBy: [{ createdAt: "desc" }] },
       },
     });
-    res.json(supervisor);
+    res.json(coordinator);
   } catch (err) {
     res.json({ error: "wrong data", errMsg: err });
   }
 });
 
-//creat supervisor
-router.post("/supervisor", async (req, res) => {
-  const { fname, lname, gender, password, email, coordinatorId } = req.body;
+//creat coordinator
+router.post("/coordinator", async (req, res) => {
+  const { fname, lname, gender, password, email } = req.body;
   try {
-    const createSupervisor = await prisma.supervisor.create({
+    const createcoordinator = await prisma.coordinator.create({
       data: {
         fname,
         lname,
         gender,
         password,
         email,
-        coordinatorId: Number(coordinatorId),
       },
     });
-    res.json(createSupervisor);
+    res.json(createcoordinator);
   } catch (err) {
     res.json({ error: "wrong data", errMsg: err });
   }
 });
 
-//UPDATE password of a supervisor
-router.put("/supervisor/:id/password", async (req, res) => {
+//UPDATE password of a coordinator
+router.put("/coordinator/:id/password", async (req, res) => {
   const { id } = req.params;
   const { password } = req.body;
   try {
-    const updatedSupervisor = await prisma.supervisor.update({
+    const updatedcoordinator = await prisma.coordinator.update({
       where: { id: Number(id) || undefined },
       data: { password: password || undefined },
     });
-    res.json(updatedSupervisor);
+    res.json(updatedcoordinator);
   } catch (error) {
     res.json({
-      error: `supervisor with ID ${id} does not exist in the database`,
+      error: `coordinator with ID ${id} does not exist in the database`,
     });
   }
 });

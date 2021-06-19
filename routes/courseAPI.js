@@ -160,8 +160,16 @@ router.get("/courses/minor/:minor/:level", async (req, res) => {
 
 //creat course
 router.post("/course", async (req, res) => {
-  const { name, credit, discreption, courseCode, level, majorId, minorId } =
-    req.body;
+  const {
+    name,
+    credit,
+    discreption,
+    courseCode,
+    level,
+    majorId,
+    minorId,
+    coordinatorId,
+  } = req.body;
   try {
     const createCourse = await prisma.course.create({
       data: {
@@ -172,6 +180,7 @@ router.post("/course", async (req, res) => {
         level: Number(level),
         majorId: Number(majorId),
         minorId: minorId ? Number(minorId) : minorId,
+        coordinatorId: Number(coordinatorId),
       },
     });
     res.json(createCourse);

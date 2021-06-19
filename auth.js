@@ -32,6 +32,17 @@ passport.use(
           },
         });
         user && (user["role"] = "supervisor");
+      }
+      if (!user) {
+        user = await prisma.coordinator.findUnique({
+          where: { email: email },
+          select: {
+            id: true,
+            email: true,
+            password: true,
+          },
+        });
+        user && (user["role"] = "coordinator");
       } else {
         user && (user["role"] = "student");
       }
