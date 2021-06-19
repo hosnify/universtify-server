@@ -46,6 +46,20 @@ const supervisorData = Array.from({ length: 100 }).map(() => ({
     max: 6,
   })}.png`,
 }));
+
+const coordinatorsData = Array.from({ length: 100 }).map(() => ({
+  fname: arabicNames[faker.datatype.number({ min: 0, max: 10 })],
+  lname: arabicNames[faker.datatype.number({ min: 0, max: 10 })],
+  gender: "MALE",
+  password: faker.internet.password(),
+  email: faker.internet.email(),
+  phone: faker.phone.phoneNumber(),
+  avatar: `/static/images/avatars/avatar_${faker.datatype.number({
+    min: 0,
+    max: 6,
+  })}.png`,
+}));
+
 const MajorData = [
   { name: "management information system", code: "MIS" },
   { name: "human resource", code: "HR" },
@@ -75,6 +89,9 @@ const finishedCoursesData = Array.from({ length: 100 }).map(() => ({
 }));
 
 async function main() {
+  const createManyCoordinators = await prisma.major.createMany({
+    data: coordinatorsData,
+  });
   const createManyMajors = await prisma.major.createMany({
     data: MajorData,
   });
