@@ -20,31 +20,31 @@ passport.use(
           id: true,
           email: true,
           password: true,
+          role: true,
         },
       });
+
       if (!user) {
         user = await prisma.supervisor.findUnique({
-          where: { email: email },
+          where: { email: email.toString() },
           select: {
             id: true,
             email: true,
             password: true,
+            role: true,
           },
         });
-        user && (user["role"] = "supervisor");
       }
       if (!user) {
         user = await prisma.coordinator.findUnique({
-          where: { email: email },
+          where: { email: email.toString() },
           select: {
             id: true,
             email: true,
             password: true,
+            role: true,
           },
         });
-        user && (user["role"] = "coordinator");
-      } else {
-        user && (user["role"] = "student");
       }
 
       if (user && email === user.email && password === user.password) {

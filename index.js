@@ -7,6 +7,7 @@ const courseRouter = require("./routes/courseAPI");
 const enrollmentRouter = require("./routes/enrollmentAPI");
 const studentRouter = require("./routes/studentAPI");
 const supervisorRouter = require("./routes/supervisorAPI");
+const coordinatorRouter = require("./routes/coordinatorAPI");
 const notificationRouter = require("./routes/notificationAPI");
 const majorRouter = require("./routes/majorAPI");
 
@@ -21,6 +22,7 @@ app.use(courseRouter);
 app.use(enrollmentRouter);
 app.use(studentRouter);
 app.use(supervisorRouter);
+app.use(coordinatorRouter);
 app.use(notificationRouter);
 app.use(majorRouter);
 
