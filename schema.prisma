@@ -32,6 +32,7 @@ model Student {
   semester        Semester?
   creditDone      Int?              @default(0)
   creditHave      Int?              @default(18)
+  role            String            @default("student")
   supervisorId    Int?
   supervisor      Supervisor?       @relation(fields: [supervisorId], references: [id])
   coursesFinished FinishedCourses[]
@@ -58,6 +59,7 @@ model Supervisor {
   gender        Gender?
   password      String?         @default(uuid())
   email         String          @unique
+  role          String          @default("supervisor")
   avatar        String?
   students      Student[]
   enrollments   Enrollment[]
@@ -76,6 +78,7 @@ model Coordinator {
   gender        Gender?
   password      String?         @default(uuid())
   email         String          @unique
+  role          String          @default("coordinator")
   avatar        String?
   students      Student[]
   courses       Course[]
