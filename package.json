@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "postinstall": "npx prisma generate && npx prisma migrate reset ",
+    "seed": "npx prisma generate && psql -U postgres -d registration -c  \"DROP SCHEMA public CASCADE;\" && psql -U postgres -d registration -c  \"CREATE SCHEMA public;\" && psql -U postgres -d registration -c  \"GRANT ALL ON SCHEMA public TO postgres\" && psql -U postgres -d registration -c  \"GRANT ALL ON SCHEMA public TO public;\" && psql registration <db.sql",
     "studio": "npx prisma studio"
   },
   "author": "",
