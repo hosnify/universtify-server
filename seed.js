@@ -20,34 +20,34 @@ const studentData = Array.from({ length: 100 }).map(() => ({
   gender: "MALE",
   password: faker.internet.password(),
   email: faker.internet.email(),
-  level: faker.datatype.number({ min: 1, max: 5 }),
+  level: faker.datatype.number({ min: 1, max: 4 }),
   semester: "SUMMER",
-  majorId: 1,
-  minorId: 2,
+  majorId: faker.datatype.number({ min: 1, max: 3 }),
+  minorId: faker.datatype.number({ min: 4, max: 5 }),
   creditDone: faker.datatype.number({ min: 20, max: 200 }),
   creditHave: faker.datatype.number({ min: 12, max: 20 }),
-  supervisorId: faker.datatype.number({ min: 1, max: 99 }),
-  GPA: faker.datatype.float({ min: 0, max: 4, precision: 0.2 }),
-  lastTermGPA: faker.datatype.float({ min: 0, max: 4, precision: 0.2 }),
+  supervisorId: faker.datatype.number({ min: 1, max: 10 }),
+  coordinatorId: faker.datatype.number({ min: 1, max: 10 }),
   avatar: `/static/images/avatars/avatar_${faker.datatype.number({
     min: 4,
     max: 6,
   })}.png`,
 }));
-const supervisorData = Array.from({ length: 100 }).map(() => ({
+const supervisorData = Array.from({ length: 10 }).map(() => ({
   fname: arabicNames[faker.datatype.number({ min: 0, max: 10 })],
   lname: arabicNames[faker.datatype.number({ min: 0, max: 10 })],
   gender: "MALE",
   password: faker.internet.password(),
   email: faker.internet.email(),
   phone: faker.phone.phoneNumber(),
+  coordinatorId: faker.datatype.number({ min: 1, max: 10 }),
   avatar: `/static/images/avatars/avatar_${faker.datatype.number({
     min: 0,
     max: 3,
   })}.png`,
 }));
 
-const coordinatorsData = Array.from({ length: 100 }).map(() => ({
+const coordinatorsData = Array.from({ length: 10 }).map(() => ({
   fname: arabicNames[faker.datatype.number({ min: 0, max: 10 })],
   lname: arabicNames[faker.datatype.number({ min: 0, max: 10 })],
   gender: "MALE",
