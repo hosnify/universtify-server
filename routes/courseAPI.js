@@ -115,6 +115,9 @@ router.get("/courses/major/:major/:level", async (req, res) => {
           {
             type: "facultyRequirment",
           },
+          {
+            type: "universityElective",
+          },
         ],
         AND: {
           level: Number(level),

@@ -171,4 +171,5 @@ enum Type {
   minorRequirment
   universityRequirment
   facultyRequirment
+  universityElective
 }
