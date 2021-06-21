@@ -110,7 +110,10 @@ router.get("/courses/major/:major/:level", async (req, res) => {
             major: { code: major.toUpperCase() },
           },
           {
-            major: { code: "GENERAL" },
+            type: "universityRequirment",
+          },
+          {
+            type: "facultyRequirment",
           },
         ],
         AND: {
@@ -169,6 +172,8 @@ router.post("/course", async (req, res) => {
     majorId,
     minorId,
     coordinatorId,
+    type,
+    isElective,
   } = req.body;
   try {
     const createCourse = await prisma.course.create({
@@ -178,9 +183,11 @@ router.post("/course", async (req, res) => {
         discreption,
         courseCode,
         level: Number(level),
-        majorId: Number(majorId),
+        majorId: majorId ? Number(majorId) : majorId,
         minorId: minorId ? Number(minorId) : minorId,
         coordinatorId: Number(coordinatorId),
+        type: type ? String(type) : type,
+        isElective: Boolean(isElective),
       },
     });
     res.json(createCourse);

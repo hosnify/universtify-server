@@ -30,7 +30,7 @@ const studentData = Array.from({ length: 100 }).map(() => ({
   GPA: faker.datatype.float({ min: 0, max: 4, precision: 0.2 }),
   lastTermGPA: faker.datatype.float({ min: 0, max: 4, precision: 0.2 }),
   avatar: `/static/images/avatars/avatar_${faker.datatype.number({
-    min: 0,
+    min: 4,
     max: 6,
   })}.png`,
 }));
@@ -43,7 +43,7 @@ const supervisorData = Array.from({ length: 100 }).map(() => ({
   phone: faker.phone.phoneNumber(),
   avatar: `/static/images/avatars/avatar_${faker.datatype.number({
     min: 0,
-    max: 6,
+    max: 3,
   })}.png`,
 }));
 
@@ -56,13 +56,16 @@ const coordinatorsData = Array.from({ length: 100 }).map(() => ({
   phone: faker.phone.phoneNumber(),
   avatar: `/static/images/avatars/avatar_${faker.datatype.number({
     min: 0,
-    max: 6,
+    max: 3,
   })}.png`,
 }));
 
 const MajorData = [
-  { name: "management information system", code: "MIS" },
-  { name: "human resource", code: "HR" },
+  { name: "Management Information Systems", code: "MIS" },
+  { name: "Marketing", code: "MKT" },
+  { name: "Finance", code: "FIN" },
+  { name: "Human Resources Management ", code: "HRM" },
+  { name: "Accounting ", code: "ACT" },
 ];
 const courseData = Array.from({ length: 200 }).map(() => ({
   name: faker.commerce.productName(),
@@ -89,7 +92,7 @@ const finishedCoursesData = Array.from({ length: 100 }).map(() => ({
 }));
 
 async function main() {
-  const createManyCoordinators = await prisma.major.createMany({
+  const createManyCoordinators = await prisma.coordinator.createMany({
     data: coordinatorsData,
   });
   const createManyMajors = await prisma.major.createMany({
@@ -99,30 +102,30 @@ async function main() {
     .createMany({
       data: supervisorData,
     })
-    .then(async () => {
-      const createManyCourses = await prisma.course.createMany({
-        data: courseData,
-        skipDuplicates: true,
-      });
-    })
+    // .then(async () => {
+    //   const createManyCourses = await prisma.course.createMany({
+    //     data: courseData,
+    //     skipDuplicates: true,
+    //   });
+    // })
     .then(async () => {
       const createManyStudent = await prisma.student.createMany({
         data: studentData,
       });
-    })
-
-    .then(async () => {
-      const createManyFinishedCourses = await prisma.finishedCourses.createMany(
-        {
-          data: finishedCoursesData,
-          skipDuplicates: true,
-        }
-      );
     });
-  const createManyFinishedCourses = await prisma.finishedCourses.createMany({
-    data: finishedCoursesData,
-    skipDuplicates: true,
-  });
+
+  //   .then(async () => {
+  //     const createManyFinishedCourses = await prisma.finishedCourses.createMany(
+  //       {
+  //         data: finishedCoursesData,
+  //         skipDuplicates: true,
+  //       }
+  //     );
+  //   });
+  // const createManyFinishedCourses = await prisma.finishedCourses.createMany({
+  //   data: finishedCoursesData,
+  //   skipDuplicates: true,
+  // });
   // for (let level = 2; level <= 5; level++) {
   //   const getStudentBylevel = (await prisma.student.findMany()).map(
   //     (student) => student.id
@@ -132,31 +135,31 @@ async function main() {
   //   ).map((course) => course.id);
   // }
 
-  for (let level = 2; level <= 5; level++) {
-    const getCoursesByLevel = (
-      await prisma.course.findMany({ where: { level: level - 1 } })
-    )
-      .map((course) => {
-        return { id: course.id };
-      })
-      .filter((_, index) => index < 2); //take 3 elemnts only
-    const getCoursesForPrevLevel = (
-      await prisma.course.findMany({ where: { level } })
-    )
-      .map((course) => course.id)
-      .forEach(async (id) => {
-        await prisma.course.update({
-          where: {
-            id,
-          },
-          data: {
-            prerequisites: {
-              connect: getCoursesByLevel,
-            },
-          },
-        });
-      });
-  }
+  // for (let level = 2; level <= 5; level++) {
+  //   const getCoursesByLevel = (
+  //     await prisma.course.findMany({ where: { level: level - 1 } })
+  //   )
+  //     .map((course) => {
+  //       return { id: course.id };
+  //     })
+  //     .filter((_, index) => index < 2); //take 3 elemnts only
+  //   const getCoursesForPrevLevel = (
+  //     await prisma.course.findMany({ where: { level } })
+  //   )
+  //     .map((course) => course.id)
+  //     .forEach(async (id) => {
+  //       await prisma.course.update({
+  //         where: {
+  //           id,
+  //         },
+  //         data: {
+  //           prerequisites: {
+  //             connect: getCoursesByLevel,
+  //           },
+  //         },
+  //       });
+  //     });
+  // }
 }
 
 main()

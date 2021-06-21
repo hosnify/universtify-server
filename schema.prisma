@@ -97,6 +97,8 @@ model Course {
   credit           Int?
   available        Boolean           @default(true)
   courseCode       String?
+  type             Type?
+  isElective       Boolean           @default(false)
   prerequisites    Course[]          @relation("CoursePrerequisites", references: [id])
   prerequisitedBy  Course[]          @relation("CoursePrerequisites", references: [id])
   studentsFinished FinishedCourses[]
@@ -161,4 +163,12 @@ enum Semester {
   FALL
   SPRING
   SUMMER
+}
+
+enum Type {
+  majorElective
+  majorRequirment
+  minorRequirment
+  universityRequirment
+  facultyRequirment
 }
