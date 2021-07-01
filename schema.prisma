@@ -18,6 +18,19 @@ model Major {
 
 }
 
+model Semester {
+  id            Int               @id @default(autoincrement())
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  type          SemesterType      @default(FALL)
+  year          Int?              @default(2021)
+  status        String            @default("current")
+  Courses       Course[]
+  students      StudentSemester[]
+  coordinatorId Int?
+  coordinator   Coordinator?      @relation(fields: [coordinatorId], references: [id])
+}
+
 model Student {
   id              Int               @id @default(autoincrement())
   uniCode         String            @unique @default(uuid())
@@ -29,7 +42,6 @@ model Student {
   password        String?           @default(uuid())
   email           String            @unique
   level           Int?              @default(1)
-  semester        Semester?         @default(FALL)
   creditDone      Int?              @default(0)
   creditHave      Int?              @default(18)
   role            String            @default("student")
@@ -47,6 +59,7 @@ model Student {
   minor           Major?            @relation("MinorStudents", fields: [minorId], references: [id])
   coordinatorId   Int?
   coordinator     Coordinator?      @relation(fields: [coordinatorId], references: [id])
+  semesters       StudentSemester[]
 }
 
 model Supervisor {
@@ -84,7 +97,7 @@ model Coordinator {
   courses       Course[]
   notifications Notifications[]
   supervisors   Supervisor[]
-
+  Semester      Semester[]
 }
 
 model Course {
@@ -99,6 +112,7 @@ model Course {
   courseCode       String?
   type             Type?
   isElective       Boolean           @default(false)
+  semesters        Semester[]
   prerequisites    Course[]          @relation("CoursePrerequisites", references: [id])
   prerequisitedBy  Course[]          @relation("CoursePrerequisites", references: [id])
   studentsFinished FinishedCourses[]
@@ -112,32 +126,49 @@ model Course {
 }
 
 model Enrollment {
-  id           Int         @id @default(autoincrement())
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
-  supervisor   Supervisor? @relation(fields: [supervisorId], references: [id])
+  id           Int              @id @default(autoincrement())
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  supervisor   Supervisor?      @relation(fields: [supervisorId], references: [id])
   supervisorId Int?
-  student      Student?    @relation(fields: [studentID], references: [id])
+  student      Student?         @relation(fields: [studentID], references: [id])
   studentID    Int?
-  course       Course?     @relation(fields: [courseID], references: [id])
+  course       Course?          @relation(fields: [courseID], references: [id])
   courseID     Int?
-  isAproved    Boolean     @default(false)
-  status       String      @default("in review")
+  isAproved    Boolean          @default(false)
+  status       String           @default("in review")
+  semester     StudentSemester? @relation(fields: [studentID, semesterId], references: [studentId, semesterId])
+  semesterId   Int?
 }
 
 model FinishedCourses {
-  id             Int       @id @default(autoincrement())
-  course         Course    @relation(fields: [courseId], references: [id])
+  id             Int              @id @default(autoincrement())
+  course         Course           @relation(fields: [courseId], references: [id])
   courseId       Int
-  student        Student   @relation(fields: [studentID], references: [id])
+  student        Student          @relation(fields: [studentID], references: [id])
   studentID      Int
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
   grade          Float?
-  semester       Semester?
   instructorName String?
+  semester       StudentSemester? @relation(fields: [studentID, semesterId], references: [studentId, semesterId])
+  semesterId     Int?
+}
 
+model StudentSemester {
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  student         Student           @relation(fields: [studentId], references: [id])
+  studentId       Int
+  semester        Semester          @relation(fields: [semesterId], references: [id])
+  semesterId      Int
+  semesterGPA     Int?
+  creditDone      Int?              @default(0)
+  creditHave      Int?              @default(18)
+  FinishedCourses FinishedCourses[]
+  enrollments     Enrollment[]
 
+  @@id([studentId, semesterId])
 }
 
 model Notifications {
@@ -159,7 +190,7 @@ enum Gender {
   FEMALE
 }
 
-enum Semester {
+enum SemesterType {
   FALL
   SPRING
   SUMMER
