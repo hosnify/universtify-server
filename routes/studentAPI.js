@@ -231,4 +231,17 @@ router.delete("/student/:id", async (req, res) => {
   }
 });
 
+export const getLastGPA = (studentId) => {
+  return await prisma.student
+    .findUnique({
+      where: {
+        id: Number(studentId),
+      },
+      select: {
+        lastTermGPA: true,
+      },
+    })
+    .then(({ lastTermGPA }) => lastTermGPA);
+};
+
 module.exports = router;
