@@ -32,34 +32,36 @@ model Semester {
 }
 
 model Student {
-  id              Int               @id @default(autoincrement())
-  uniCode         String            @unique @default(uuid())
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
-  fname           String            @db.VarChar(255)
-  lname           String            @db.VarChar(255)
-  gender          Gender?
-  password        String?           @default(uuid())
-  email           String            @unique
-  level           Int?              @default(1)
-  creditDone      Int?              @default(0)
-  creditHave      Int?              @default(18)
-  role            String            @default("student")
-  supervisorId    Int?
-  supervisor      Supervisor?       @relation(fields: [supervisorId], references: [id])
-  coursesFinished FinishedCourses[]
-  GPA             String?           @default("A")
-  lastTermGPA     String?           @default("A")
-  avatar          String?           @default("/static/images/avatars/avatar_4")
-  enrollments     Enrollment[]
-  notifications   Notifications[]
-  majorId         Int?
-  major           Major?            @relation("MajorStudents", fields: [majorId], references: [id])
-  minorId         Int?
-  minor           Major?            @relation("MinorStudents", fields: [minorId], references: [id])
-  coordinatorId   Int?
-  coordinator     Coordinator?      @relation(fields: [coordinatorId], references: [id])
-  semesters       StudentSemester[]
+  id                   Int               @id @default(autoincrement())
+  uniCode              String            @unique @default(uuid())
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+  fname                String            @db.VarChar(255)
+  lname                String            @db.VarChar(255)
+  gender               Gender?
+  password             String?           @default(uuid())
+  email                String            @unique
+  level                Int?              @default(1)
+  creditDone           Int?              @default(0)
+  creditHave           Int?              @default(18)
+  role                 String            @default("student")
+  supervisorId         Int?
+  supervisor           Supervisor?       @relation(fields: [supervisorId], references: [id])
+  coursesFinished      FinishedCourses[]
+  GPA                  String?           @default("A")
+  numericalGPA         Float             @default(4)
+  lastTermGPA          String?           @default("A")
+  numericalLastTermGPA Float             @default(4)
+  avatar               String?           @default("/static/images/avatars/avatar_4")
+  enrollments          Enrollment[]
+  notifications        Notifications[]
+  majorId              Int?
+  major                Major?            @relation("MajorStudents", fields: [majorId], references: [id])
+  minorId              Int?
+  minor                Major?            @relation("MinorStudents", fields: [minorId], references: [id])
+  coordinatorId        Int?
+  coordinator          Coordinator?      @relation(fields: [coordinatorId], references: [id])
+  semesters            StudentSemester[]
 }
 
 model Supervisor {
