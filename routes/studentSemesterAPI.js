@@ -1,6 +1,5 @@
 const express = require("express");
 const { PrismaClient } = require("@prisma/client");
-const { getLastGPA } = require("./studentAPI");
 
 const router = express.Router();
 const prisma = new PrismaClient();
@@ -26,13 +25,26 @@ router.get("/student/:id/semesters", async (req, res) => {
 //creat student semester
 router.post("/student/:studentId/semester/:semesterId", async (req, res) => {
   const { studentId, semesterId } = req.params;
+  const getLastGPA = async (studentId) => {
+    return await prisma.student
+      .findUnique({
+        where: {
+          id: Number(studentId),
+        },
+        select: {
+          numericalLastTermGPA: true,
+        },
+      })
+      .then(({ numericalLastTermGPA }) => numericalLastTermGPA);
+  };
 
+  const lastTermGPA = await getLastGPA(studentId);
   try {
     const createsemester = await prisma.studentSemester.create({
       data: {
         studentId: Number(studentId),
         semesterId: Number(semesterId),
-        creditHave: Number(getLastGPA(studentId)) >= 2 ? 18 : 12,
+        creditHave: Number(lastTermGPA) >= 2 ? 18 : 12,
       },
     });
     res.json(createsemester);
