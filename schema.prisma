@@ -137,6 +137,7 @@ model Enrollment {
   studentID    Int?
   course       Course?          @relation(fields: [courseID], references: [id])
   courseID     Int?
+  credit       Int              @default(0)
   isAproved    Boolean          @default(false)
   status       String           @default("in review")
   semester     StudentSemester? @relation(fields: [studentID, semesterId], references: [studentId, semesterId])

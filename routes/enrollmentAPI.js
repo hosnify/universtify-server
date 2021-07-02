@@ -118,13 +118,34 @@ router.get("/student/:id/enrolledCourses", async (req, res) => {
     res.json({ error: "wrong data", errMsg: err });
   }
 });
+
 //creat enrollment
 router.post("/enrollment", async (req, res) => {
-  const { supervisorId, isAproved, studentID, courseID } = req.body;
+  const { supervisorId, studentID, courseID, credit, semesterId } = req.body;
   try {
     const createenrollment = await prisma.enrollment.create({
-      data: { supervisorId, isAproved, studentID, courseID },
+      data: {
+        supervisorId: Number(supervisorId),
+        studentID: Number(studentID),
+        courseID: Number(courseID),
+        semesterId: Number(semesterId),
+        credit: Number(credit),
+      },
     });
+    const updateSemester = await prisma.studentSemester.update({
+      where: {
+        studentId_semesterId: {
+          studentId: Number(studentID),
+          semesterId: Number(semesterId),
+        },
+      },
+      data: {
+        creditHave: {
+          decrement: Number(credit),
+        },
+      },
+    });
+
     res.json(createenrollment);
   } catch (err) {
     res.json({ error: "wrong data", errMsg: err });
@@ -134,9 +155,16 @@ router.post("/enrollment", async (req, res) => {
 //UPDATE enrollment
 router.put("/enrollment/:id", async (req, res) => {
   const { id } = req.params;
-  const { supervisorId, isAproved, status } = req.body;
+  const { supervisorId, isAproved, status, credit } = req.body;
 
-  const UpdateEnrollment = await prisma.enrollment.update({
+  const previousStatus = await prisma.enrollment
+    .findUnique({
+      where: { id: Number(id) },
+      select: { status: true },
+    })
+    .then(({ status }) => status);
+
+  const UpdatedEnrollment = await prisma.enrollment.update({
     where: { id: Number(id) },
     data: {
       supervisorId,
@@ -144,7 +172,36 @@ router.put("/enrollment/:id", async (req, res) => {
       status,
     },
   });
-  res.json(UpdateEnrollment);
+  if (status === "rejected") {
+    const updateSemester = await prisma.studentSemester.update({
+      where: {
+        studentId_semesterId: {
+          studentId: Number(UpdatedEnrollment.studentID),
+          semesterId: Number(UpdatedEnrollment.semesterId),
+        },
+      },
+      data: {
+        creditHave: {
+          increment: Number(credit),
+        },
+      },
+    });
+  } else if (previousStatus === "rejected" && status === "in review") {
+    const updateSemester = await prisma.studentSemester.update({
+      where: {
+        studentId_semesterId: {
+          studentId: Number(UpdatedEnrollment.studentID),
+          semesterId: Number(UpdatedEnrollment.semesterId),
+        },
+      },
+      data: {
+        creditHave: {
+          decrement: Number(credit),
+        },
+      },
+    });
+  }
+  res.json(UpdatedEnrollment);
 });
 //delete enrollment
 router.delete("/enrollment/:id", async (req, res) => {
