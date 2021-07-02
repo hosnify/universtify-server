@@ -22,6 +22,23 @@ router.get("/student/:id/semesters", async (req, res) => {
   }
 });
 
+router.get("/student/:studentId/semester/:semesterId", async (req, res) => {
+  const { studentId, semesterId } = req.params;
+  try {
+    const semesters = await prisma.studentSemester.findUnique({
+      where: {
+        studentId_semesterId: {
+          studentId: Number(studentId),
+          semesterId: Number(semesterId),
+        },
+      },
+    });
+    res.json(semesters);
+  } catch (err) {
+    res.json({ error: "wrong data", errMsg: err });
+  }
+});
+
 //creat student semester
 router.post("/student/:studentId/semester/:semesterId", async (req, res) => {
   const { studentId, semesterId } = req.params;
