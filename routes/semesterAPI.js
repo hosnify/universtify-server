@@ -4,7 +4,7 @@ const { PrismaClient } = require("@prisma/client");
 const router = express.Router();
 const prisma = new PrismaClient();
 
-//GET all semester
+//GET all semesters
 router.get("/semesters", async (req, res) => {
   try {
     const semester = await prisma.semester.findMany();
@@ -31,7 +31,7 @@ router.post("/semester", async (req, res) => {
   }
 });
 
-//update semester semester
+//update semester => change status
 router.put("/semester/:id", async (req, res) => {
   const { id } = req.params;
 
@@ -51,4 +51,23 @@ router.put("/semester/:id", async (req, res) => {
   }
 });
 
+//update semester => add course to semester
+router.put("/semester/:semesterId/course/courseId", async (req, res) => {
+  const { semesterId, courseId } = req.params;
+  try {
+    const updateSemester = await prisma.semester.update({
+      where: {
+        id: Number(semesterId),
+      },
+      data: {
+        Courses: {
+          connect: { id: Number(courseId) },
+        },
+      },
+    });
+    res.json(updateSemester);
+  } catch (err) {
+    res.json({ error: "wrong data", errMsg: err });
+  }
+});
 module.exports = router;
