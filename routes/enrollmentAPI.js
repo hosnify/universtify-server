@@ -210,6 +210,20 @@ router.delete("/enrollment/:id", async (req, res) => {
     const deleteEnrollment = await prisma.enrollment.delete({
       where: { id: Number(id) },
     });
+
+    const updateSemester = await prisma.studentSemester.update({
+      where: {
+        studentId_semesterId: {
+          studentId: Number(deleteEnrollment.studentID),
+          semesterId: Number(deleteEnrollment.semesterId),
+        },
+      },
+      data: {
+        creditHave: {
+          increment: Number(deleteEnrollment.credit),
+        },
+      },
+    });
     res.json(deleteEnrollment);
   } catch (err) {
     res.json({ error: "wrong data", errMsg: err });
