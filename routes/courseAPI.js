@@ -229,30 +229,79 @@ router.put("/course/:id/prerequisites", async (req, res) => {
   }
 });
 
-//creat finished course , == end enrollment by adding result
+//creat finished course ==> end enrollment by adding result
 router.post("/enrollment/:id/addresult", async (req, res) => {
   const { id } = req.params;
 
-  const { courseId, studentID, grade, semester, instructorName } = req.body;
+  const { courseId, studentID, grade, instructorName, semesterId, credit } =
+    req.body;
   try {
     const createFinishedCourse = await prisma.finishedCourses.create({
       data: {
         courseId: Number(courseId),
         studentID: Number(studentID),
         grade: Number(grade),
-        semester,
+        semesterId: Number(semesterId),
+        credit: Number(credit),
         instructorName,
       },
     });
-
-    const deleteEnrollment = await prisma.enrollment.delete({
+    const deletedEnrollment = await prisma.enrollment.delete({
       where: { id: Number(id) },
     });
 
+    const studentSemester = await prisma.studentSemester.findUnique({
+      where: {
+        studentId_semesterId: {
+          studentId: Number(studentID),
+          semesterId: Number(semesterId),
+        },
+      },
+    });
+    /*
+     equation
+                    (courseGPA * CourseCredit) + (previousTotalGpa * previousTotalCredit) 
+        termGPA =  --------------------------------------------------------------------
+                                    CourseCredit + previousTotalCredit
+    */
+    const calculateGPA =
+      (gpaConverter(grade).value * Number(credit) +
+        Number(studentSemester.semesterGPA) *
+          Number(studentSemester.creditDone)) /
+      (Number(studentSemester.creditDone) + Number(credit));
+
+    const updatedSemester = await prisma.studentSemester.update({
+      where: {
+        studentId_semesterId: {
+          studentId: Number(studentID),
+          semesterId: Number(semesterId),
+        },
+      },
+      data: {
+        creditDone: {
+          increment: Number(deletedEnrollment.credit),
+        },
+        semesterGPA: calculateGPA,
+      },
+    });
     res.json(createFinishedCourse);
   } catch (err) {
     res.json({ error: "wrong data", errMsg: err });
   }
 });
+
+const gpaConverter = (grade) => {
+  if (grade <= 100 && grade > 90) return { code: "A", value: 4 };
+  if (grade <= 90 && grade > 85) return { code: "A-", value: 3.7 };
+  if (grade <= 85 && grade > 80) return { code: "B+", value: 3.3 };
+  if (grade <= 80 && grade > 75) return { code: "B", value: 3 };
+  if (grade <= 75 && grade > 70) return { code: "B-", value: 2.7 };
+  if (grade <= 70 && grade > 65) return { code: "C+", value: 2.3 };
+  if (grade <= 65 && grade > 60) return { code: "C", value: 2 };
+  if (grade <= 60 && grade > 55) return { code: "C-", value: 1.7 };
+  if (grade <= 55 && grade > 53) return { code: "D+", value: 1.3 };
+  if (grade <= 53 && grade >= 50) return { code: "D", value: 1 };
+  if (grade < 50) return { code: "F", value: 0 };
+};
 
 module.exports = router;

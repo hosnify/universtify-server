@@ -153,6 +153,7 @@ model FinishedCourses {
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
   grade          Float?
+  credit         Int?
   instructorName String?
   semester       StudentSemester? @relation(fields: [studentID, semesterId], references: [studentId, semesterId])
   semesterId     Int?
@@ -165,7 +166,7 @@ model StudentSemester {
   studentId       Int
   semester        Semester          @relation(fields: [semesterId], references: [id])
   semesterId      Int
-  semesterGPA     Int?
+  semesterGPA     Float?
   creditDone      Int?              @default(0)
   creditHave      Int?              @default(18)
   FinishedCourses FinishedCourses[]
