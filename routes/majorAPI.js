@@ -10,7 +10,7 @@ router.get("/majors", async (req, res) => {
     const major = await prisma.major.findMany();
     res.json(major);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -23,7 +23,7 @@ router.post("/major", async (req, res) => {
     });
     res.json(createmajor);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 

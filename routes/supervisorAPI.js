@@ -11,7 +11,7 @@ router.get("/supervisors", async (req, res) => {
     });
     res.json(supervisors);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -28,7 +28,7 @@ router.get("/supervisor/:id", async (req, res) => {
     });
     res.json(supervisor);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -48,7 +48,7 @@ router.post("/supervisor", async (req, res) => {
     });
     res.json(createSupervisor);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 

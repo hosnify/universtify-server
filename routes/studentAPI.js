@@ -33,7 +33,7 @@ router.post("/student", async (req, res) => {
     });
     res.json(createStudent);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -52,7 +52,7 @@ router.get("/students", async (req, res) => {
     });
     res.json(students);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -79,7 +79,7 @@ router.post("/user", async (req, res) => {
     }
     res.json(user);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -99,7 +99,7 @@ router.get("/student/:id", async (req, res) => {
     });
     res.json(student);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -117,7 +117,7 @@ router.get("/student/:id/courses", async (req, res) => {
     });
     res.json(studentCourses);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -151,7 +151,7 @@ router.get("/student/:id/enrollments", async (req, res) => {
     });
     res.json(studentEnrollments);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -227,7 +227,7 @@ router.delete("/student/:id", async (req, res) => {
     });
     res.json(deleteStudent);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 

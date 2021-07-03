@@ -11,7 +11,7 @@ router.get("/coordinators", async (req, res) => {
     });
     res.json(coordinators);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -28,7 +28,7 @@ router.get("/coordinator/:id", async (req, res) => {
     });
     res.json(coordinator);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -47,7 +47,7 @@ router.post("/coordinator", async (req, res) => {
     });
     res.json(createcoordinator);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 

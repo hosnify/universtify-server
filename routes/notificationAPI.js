@@ -18,7 +18,7 @@ router.post("/student/:id/notification", async (req, res) => {
     });
     res.json(createNotification);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -35,7 +35,7 @@ router.post("/supervisor/:id/notification", async (req, res) => {
     });
     res.json(createNotification);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -48,7 +48,7 @@ router.get("/student/:id/notifications", async (req, res) => {
     });
     res.json(notifications);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -61,7 +61,7 @@ router.get("/supervisor/:id/notifications", async (req, res) => {
     });
     res.json(notifications);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 

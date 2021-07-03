@@ -41,7 +41,7 @@ router.get("/courses", async (req, res) => {
     });
     res.json(courses);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -55,7 +55,7 @@ router.get("/course/:id", async (req, res) => {
     });
     res.json(course);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -95,7 +95,7 @@ router.get("/course/:id/enrollments", async (req, res) => {
     });
     res.json(course);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -132,7 +132,7 @@ router.get("/courses/major/:major/:level", async (req, res) => {
     });
     res.json(courses);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -160,7 +160,7 @@ router.get("/courses/minor/:minor/:level", async (req, res) => {
     });
     res.json(courses);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -195,7 +195,7 @@ router.post("/course", async (req, res) => {
     });
     res.json(createCourse);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -225,7 +225,7 @@ router.put("/course/:id/prerequisites", async (req, res) => {
     });
     res.json(updateCourse);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -286,7 +286,7 @@ router.post("/enrollment/:id/addresult", async (req, res) => {
     });
     res.json(createFinishedCourse);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 

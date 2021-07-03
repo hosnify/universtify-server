@@ -16,7 +16,7 @@ router.get("/semesters", async (req, res) => {
     });
     res.json(semester);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -34,7 +34,7 @@ router.get("/semester/:id", async (req, res) => {
     });
     res.json(semester);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 //creat semester
@@ -50,7 +50,7 @@ router.post("/semester", async (req, res) => {
     });
     res.json(createsemester);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -166,7 +166,7 @@ router.put("/semester/:semesterId/course/:courseId", async (req, res) => {
       .Courses();
     res.json(updateSemester);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 module.exports = router;

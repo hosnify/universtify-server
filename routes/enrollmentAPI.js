@@ -42,7 +42,7 @@ router.get("/enrollments", async (req, res) => {
     });
     res.json(enrollments);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -83,7 +83,7 @@ router.get("/enrollment/:id", async (req, res) => {
     });
     res.json(enrollment);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -115,7 +115,7 @@ router.get("/student/:id/enrolledCourses", async (req, res) => {
     });
     res.json(studentEnrolledCourses);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -148,7 +148,7 @@ router.post("/enrollment", async (req, res) => {
 
     res.json(createenrollment);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -226,7 +226,7 @@ router.delete("/enrollment/:id", async (req, res) => {
     });
     res.json(deleteEnrollment);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 

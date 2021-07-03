@@ -18,7 +18,7 @@ router.get("/student/:id/semesters", async (req, res) => {
     });
     res.json(semesters);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -35,7 +35,7 @@ router.get("/student/:studentId/semester/:semesterId", async (req, res) => {
     });
     res.json(semesters);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
@@ -66,7 +66,7 @@ router.post("/student/:studentId/semester/:semesterId", async (req, res) => {
     });
     res.json(createsemester);
   } catch (err) {
-    res.json({ error: "wrong data", errMsg: err });
+    res.json({ error: "wrong data", errMsg: err.message });
   }
 });
 
