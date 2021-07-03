@@ -82,7 +82,9 @@ router.put("/semester/:id/end", async (req, res) => {
       },
       include: {
         students: {
-          include: { student: { select: { numericalGPA: true, creditDone } } },
+          include: {
+            student: { select: { numericalGPA: true, creditDone: true } },
+          },
         },
       },
     });
