@@ -42,7 +42,7 @@ model Student {
   gender               Gender?
   password             String?           @default(uuid())
   email                String            @unique
-  level                Int?              @default(1)
+  level                Int               @default(1)
   creditDone           Int               @default(0)
   role                 String            @default("student")
   supervisorId         Int?

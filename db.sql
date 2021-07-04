@@ -376,10 +376,7 @@ CREATE TABLE public."Student" (
     gender public."Gender",
     password text,
     email text NOT NULL,
-    level integer DEFAULT 1,
     "supervisorId" integer,
-    "GPA" text DEFAULT 'A'::text,
-    "lastTermGPA" text DEFAULT 'A'::text,
     avatar text DEFAULT '/static/images/avatars/avatar_4'::text,
     "majorId" integer,
     "minorId" integer,
@@ -387,7 +384,8 @@ CREATE TABLE public."Student" (
     role text DEFAULT 'student'::text NOT NULL,
     "numericalGPA" double precision DEFAULT 4 NOT NULL,
     "numericalLastTermGPA" double precision DEFAULT 4,
-    "creditDone" integer DEFAULT 0 NOT NULL
+    "creditDone" integer DEFAULT 0 NOT NULL,
+    level integer DEFAULT 1 NOT NULL
 );
 
 
@@ -739,109 +737,109 @@ COPY public."Semester" (id, "createdAt", "updatedAt", type, "coordinatorId", yea
 -- Data for Name: Student; Type: TABLE DATA; Schema: public; Owner: abosamra
 --
 
-COPY public."Student" (id, "uniCode", "createdAt", "updatedAt", fname, lname, gender, password, email, level, "supervisorId", "GPA", "lastTermGPA", avatar, "majorId", "minorId", "coordinatorId", role, "numericalGPA", "numericalLastTermGPA", "creditDone") FROM stdin;
-2	28f1aab7-5689-43f5-a34d-764b234dc995	2021-06-21 01:03:46.475	2021-06-21 01:03:46.488	Abdelrahman	Mohamed	MALE	LQ5cDpRxrAskL6O	Darren82@hotmail.com	1	1	A	A	/static/images/avatars/avatar_4.png	1	4	9	student	4	4	0
-3	f46ef056-0bf5-424c-9b2a-061598b89422	2021-06-21 01:03:46.475	2021-06-21 01:03:46.488	Ali	Abdelrahman	MALE	NdztJCA9AW2aYWd	Yessenia53@yahoo.com	3	8	A	A	/static/images/avatars/avatar_5.png	3	5	5	student	4	4	0
-4	1c55671e-76ca-4536-80ca-26d33b8246ba	2021-06-21 01:03:46.475	2021-06-21 01:03:46.488	Omar	Hussin	MALE	KlfSkP4VdGZ7uD2	Aida.Goldner@yahoo.com	2	5	A	A	/static/images/avatars/avatar_4.png	3	5	8	student	4	4	0
-5	7a8272d5-3386-457d-ad52-44184272e615	2021-06-21 01:03:46.475	2021-06-21 01:03:46.488	Omar	Ahmed	MALE	Xd5f5BXRyY7TA9z	Gino67@gmail.com	4	5	A	A	/static/images/avatars/avatar_6.png	3	4	2	student	4	4	0
-6	dd9a0714-7543-44a0-896d-85ff79d2fd0b	2021-06-21 01:03:46.475	2021-06-21 01:03:46.488	Ali	Hosni	MALE	aR1nzaSbdGjXypT	Camilla.Bins79@yahoo.com	1	10	A	A	/static/images/avatars/avatar_4.png	3	5	9	student	4	4	0
-7	2dcbecac-2d86-4100-b583-7f9b3217de46	2021-06-21 01:03:46.475	2021-06-21 01:03:46.488	Ahmed	Hosni	MALE	saw60Fv_iWTgHWM	Angelo36@hotmail.com	4	6	A	A	/static/images/avatars/avatar_5.png	3	5	8	student	4	4	0
-8	95b2c389-2468-40cd-9cc5-7ff680da6de7	2021-06-21 01:03:46.476	2021-06-21 01:03:46.488	Mahmoud	Ali	MALE	F0zSMLywtD0AvhK	Lafayette.Stehr@yahoo.com	3	4	A	A	/static/images/avatars/avatar_4.png	1	5	10	student	4	4	0
-9	079f22b4-8943-4287-91ce-ecbf9760b064	2021-06-21 01:03:46.476	2021-06-21 01:03:46.488	Abdelrahman	Hosni	MALE	lfGqJAdiq0Y9PEN	Mariam_Ebert@hotmail.com	4	9	A	A	/static/images/avatars/avatar_4.png	3	5	1	student	4	4	0
-10	5c654b8e-b872-4bfa-8434-2f6ba37a8a44	2021-06-21 01:03:46.476	2021-06-21 01:03:46.488	Karim	Mohamed	MALE	KWw2Lqjw5dPNuXd	Kraig_Rogahn@hotmail.com	4	3	A	A	/static/images/avatars/avatar_6.png	1	4	7	student	4	4	0
-11	0416fc35-a20b-4f8c-8888-2f5b537c8454	2021-06-21 01:03:46.476	2021-06-21 01:03:46.488	Mohamed	Abdelrahman	MALE	ug5WZDxdoUtONGz	Brooke_Hermann@gmail.com	1	9	A	A	/static/images/avatars/avatar_6.png	3	4	6	student	4	4	0
-12	046a63d0-1075-4a7a-87bc-b0caa4d081e0	2021-06-21 01:03:46.476	2021-06-21 01:03:46.488	Ali	Sameh	MALE	Lz4pOWRqMwZa9gx	Herminia71@hotmail.com	2	8	A	A	/static/images/avatars/avatar_6.png	2	4	7	student	4	4	0
-14	c36fcddd-d9f7-4ff4-a887-12d8b1e26e2f	2021-06-21 01:03:46.477	2021-06-21 01:03:46.488	Mahmoud	Ahmed	MALE	bd0fjoaUFxcUpAZ	Taurean.Parker@hotmail.com	1	1	A	A	/static/images/avatars/avatar_5.png	3	4	9	student	4	4	0
-15	cce02cb4-6a74-4132-822c-38af2d51af49	2021-06-21 01:03:46.477	2021-06-21 01:03:46.488	Kamal	Ali	MALE	816EtB_UMFuqirm	Aliya_Yundt74@hotmail.com	2	4	A	A	/static/images/avatars/avatar_6.png	1	4	1	student	4	4	0
-16	42a43f9b-793a-4184-80ac-674ff2de12f8	2021-06-21 01:03:46.477	2021-06-21 01:03:46.488	Mahmoud	Mahmoud	MALE	qhJbzptuAWxU_Pa	Mertie_Rohan97@gmail.com	4	2	A	A	/static/images/avatars/avatar_6.png	3	4	9	student	4	4	0
-17	065aa16e-d7b5-4aff-a99f-cf1b51124faf	2021-06-21 01:03:46.477	2021-06-21 01:03:46.488	Mohamed	Omar	MALE	h1O_EOOZ2MQrWXz	Julie.Lowe@hotmail.com	2	2	A	A	/static/images/avatars/avatar_6.png	2	4	4	student	4	4	0
-18	cf222147-8606-4824-8e94-7d02ea61000e	2021-06-21 01:03:46.477	2021-06-21 01:03:46.488	Kamal	Abdelrahman	MALE	oNWqBZQR4mMiAeY	Garnett55@gmail.com	4	1	A	A	/static/images/avatars/avatar_4.png	3	4	7	student	4	4	0
-19	78e92948-9b22-4ca5-8766-acf956bdd71b	2021-06-21 01:03:46.477	2021-06-21 01:03:46.488	Abdelrahman	Ali	MALE	GEviNCCcn3yELT0	Luz.Leannon79@hotmail.com	2	6	A	A	/static/images/avatars/avatar_4.png	3	5	2	student	4	4	0
-20	704c091e-2ba6-494f-b7ff-5418e4e00300	2021-06-21 01:03:46.478	2021-06-21 01:03:46.488	Ahmed	Ali	MALE	gZ694mc7UrCBMhX	Elena94@gmail.com	1	3	A	A	/static/images/avatars/avatar_4.png	2	4	5	student	4	4	0
-21	558d5ca3-94e2-4d18-bdde-6341c6bb262d	2021-06-21 01:03:46.478	2021-06-21 01:03:46.488	Hussin	Hussin	MALE	aYh4HlXRKClDcSz	Faye29@gmail.com	4	2	A	A	/static/images/avatars/avatar_4.png	2	5	2	student	4	4	0
-22	9cc812ca-c651-4a81-b104-4dbbf402d544	2021-06-21 01:03:46.478	2021-06-21 01:03:46.488	Mahmoud	Omar	MALE	GCYb_LiXUokYCEp	Alba32@yahoo.com	4	2	A	A	/static/images/avatars/avatar_6.png	1	4	5	student	4	4	0
-23	bce97107-7eca-4487-8041-cc5eda1932d3	2021-06-21 01:03:46.478	2021-06-21 01:03:46.488	Abdelrahman	Hussin	MALE	M8chbifkXWaetsH	Lonie.Ziemann@hotmail.com	3	4	A	A	/static/images/avatars/avatar_4.png	2	4	2	student	4	4	0
-24	1f9ce629-8607-49b4-83b5-8d089d960740	2021-06-21 01:03:46.478	2021-06-21 01:03:46.488	Abdelrahman	Hussin	MALE	qf7uFtmS4oYYALE	Freddy.Crooks50@hotmail.com	3	4	A	A	/static/images/avatars/avatar_6.png	1	5	7	student	4	4	0
-25	284d60f3-384b-42ab-8f52-5ae6bef66764	2021-06-21 01:03:46.478	2021-06-21 01:03:46.488	Mahmoud	Ahmed	MALE	32C5md12XBaF_XT	Leland85@hotmail.com	3	3	A	A	/static/images/avatars/avatar_5.png	1	5	3	student	4	4	0
-26	0639ed2d-7307-4c12-a576-799d7dafea81	2021-06-21 01:03:46.479	2021-06-21 01:03:46.488	Hussin	Abdelrahman	MALE	xA1jwgpUyVvvaYv	Gabe_Barrows35@gmail.com	2	5	A	A	/static/images/avatars/avatar_4.png	2	4	1	student	4	4	0
-27	d8b36ff6-dbba-4c12-a3fc-3c7bb3940472	2021-06-21 01:03:46.479	2021-06-21 01:03:46.488	Mohamed	Ahmed	MALE	2FdOzhEGgLJxrCv	Hollis.Hamill@gmail.com	3	10	A	A	/static/images/avatars/avatar_5.png	1	5	7	student	4	4	0
-28	461db074-9d5f-4461-a7bc-c4251d7e8e55	2021-06-21 01:03:46.479	2021-06-21 01:03:46.488	Karim	Ahmed	MALE	WQ44rf8YyEGhTen	Bernard_Gusikowski@gmail.com	4	1	A	A	/static/images/avatars/avatar_5.png	2	4	6	student	4	4	0
-29	12f25c95-76c5-4bb7-b24e-e48e14135e29	2021-06-21 01:03:46.479	2021-06-21 01:03:46.488	Mohamed	Ahmed	MALE	FYYXO3TyUjIfEMu	Dax89@gmail.com	4	8	A	A	/static/images/avatars/avatar_6.png	2	4	2	student	4	4	0
-30	e7cd6110-9bb7-4ce7-bfe9-27466ddd939a	2021-06-21 01:03:46.479	2021-06-21 01:03:46.488	Mohamed	Kamal	MALE	l2O4iTyssUtxN6e	Ophelia.Bradtke@yahoo.com	4	1	A	A	/static/images/avatars/avatar_5.png	3	4	1	student	4	4	0
-31	ebd6756f-039c-4a16-8c71-f89389fafc27	2021-06-21 01:03:46.479	2021-06-21 01:03:46.488	Ahmed	Ahmed	MALE	XOA0r24XByoxMoi	Colten.Trantow2@gmail.com	3	5	A	A	/static/images/avatars/avatar_4.png	2	4	1	student	4	4	0
-32	e11b0fbe-f7f7-4ae0-978c-506c3ae50bc4	2021-06-21 01:03:46.479	2021-06-21 01:03:46.488	Sameh	Omar	MALE	cDkgCdbMPYMmYA3	Jace_Kub23@yahoo.com	4	3	A	A	/static/images/avatars/avatar_4.png	1	4	3	student	4	4	0
-33	c64a3160-fe2e-409a-83eb-96f42db37b42	2021-06-21 01:03:46.48	2021-06-21 01:03:46.488	Karim	Hussin	MALE	8kwkOICxtmUgGnw	Jefferey.Wuckert@gmail.com	4	8	A	A	/static/images/avatars/avatar_4.png	3	5	6	student	4	4	0
-34	ab176dd3-0c4e-4b47-9fe9-5e54e378b9d9	2021-06-21 01:03:46.48	2021-06-21 01:03:46.488	Karim	Kamal	MALE	Q_rxR85wVfNUVNI	Ezequiel7@hotmail.com	3	4	A	A	/static/images/avatars/avatar_4.png	3	4	3	student	4	4	0
-13	19a0ac5a-1028-4aa8-b92c-874033512d74	2021-06-21 01:03:46.476	2021-07-04 18:31:25.889	Ahmed	Karim	MALE	Kj_mmPF4VNjnl20	Giuseppe.Kunde46@hotmail.com	2	9	A	A	/static/images/avatars/avatar_4.png	3	2	1	student	4	4	0
-35	9c4e4067-76c7-462b-b2da-c3d65c475189	2021-06-21 01:03:46.48	2021-06-21 01:03:46.488	Sameh	Hussin	MALE	H8YRYBwNrvPONFi	Deion.Lemke72@yahoo.com	2	1	A	A	/static/images/avatars/avatar_5.png	3	5	10	student	4	4	0
-36	bbcc19a2-732c-4b9b-a986-7ad8e738fc89	2021-06-21 01:03:46.48	2021-06-21 01:03:46.488	Abdelrahman	Ali	MALE	12Ytqi1EFXSe3Dc	Avery78@gmail.com	4	2	A	A	/static/images/avatars/avatar_6.png	3	4	8	student	4	4	0
-37	6cb08ac0-407e-4056-b59c-eb32b4731063	2021-06-21 01:03:46.48	2021-06-21 01:03:46.488	Hosni	Ahmed	MALE	e6C5KYgH0OLnaNQ	Ryan.Kshlerin@gmail.com	4	10	A	A	/static/images/avatars/avatar_5.png	1	4	4	student	4	4	0
-38	c237b8cb-d0e8-4a40-bec5-705d14ed50f3	2021-06-21 01:03:46.48	2021-06-21 01:03:46.488	Hussin	Sameh	MALE	HQ0NJuZTwGD_Jkk	Julie.Hahn49@gmail.com	2	8	A	A	/static/images/avatars/avatar_5.png	1	5	6	student	4	4	0
-39	5c53e029-0bf2-474c-999d-b7f9ffeab28c	2021-06-21 01:03:46.48	2021-06-21 01:03:46.488	Sameh	Karim	MALE	dwkuD9hNiY1S8XM	Emely_Gulgowski@gmail.com	1	8	A	A	/static/images/avatars/avatar_4.png	1	4	8	student	4	4	0
-40	160319c9-2b2b-4026-aa1b-3ce531d10266	2021-06-21 01:03:46.48	2021-06-21 01:03:46.488	Hosni	Mahmoud	MALE	c6mqo1Eka_wZ_28	Floyd.Wilderman@yahoo.com	3	3	A	A	/static/images/avatars/avatar_5.png	1	5	4	student	4	4	0
-41	907ca044-4813-4e93-9632-a0805b633a32	2021-06-21 01:03:46.48	2021-06-21 01:03:46.488	Hosni	Kamal	MALE	nVRWxkKv7dZP5Ir	Mac43@yahoo.com	3	1	A	A	/static/images/avatars/avatar_5.png	2	4	4	student	4	4	0
-42	94ee4295-c397-4f4d-96e0-07e3b398881e	2021-06-21 01:03:46.481	2021-06-21 01:03:46.488	Sameh	Abdelrahman	MALE	rLArmgcfXGc6N1P	Alivia.Borer18@yahoo.com	2	7	A	A	/static/images/avatars/avatar_6.png	2	5	7	student	4	4	0
-43	5b064f98-e7e3-451f-a0aa-3f56c764cdd5	2021-06-21 01:03:46.481	2021-06-21 01:03:46.488	Hussin	Karim	MALE	fb8Gs3cDpoZItg6	Alejandra36@hotmail.com	2	4	A	A	/static/images/avatars/avatar_4.png	1	4	7	student	4	4	0
-44	50e565d6-f614-4b7b-bb49-9fe0791d4fb4	2021-06-21 01:03:46.481	2021-06-21 01:03:46.488	Sameh	Mohamed	MALE	j0uxdXH0yKdE0bn	Raphaelle.Cruickshank@yahoo.com	2	3	A	A	/static/images/avatars/avatar_5.png	3	4	1	student	4	4	0
-45	cb444df2-d3db-412f-86ff-716dce8027ff	2021-06-21 01:03:46.481	2021-06-21 01:03:46.488	Ali	Mohamed	MALE	C2BoYtkIDa9P4Se	Dakota_Hermann@hotmail.com	4	3	A	A	/static/images/avatars/avatar_5.png	1	5	2	student	4	4	0
-46	6f5638be-c223-4807-a35f-5ed7fd1b02f8	2021-06-21 01:03:46.481	2021-06-21 01:03:46.488	Mohamed	Abdelrahman	MALE	6a3ycYLHBOxOEWY	Anabelle_Sanford72@yahoo.com	2	4	A	A	/static/images/avatars/avatar_4.png	2	4	8	student	4	4	0
-47	49818bec-31ae-4648-b5d7-287c5543f582	2021-06-21 01:03:46.481	2021-06-21 01:03:46.488	Ahmed	Hosni	MALE	x8xR5mMPCPAwO2r	Elissa40@yahoo.com	4	3	A	A	/static/images/avatars/avatar_4.png	3	4	3	student	4	4	0
-48	70e9068a-4967-4929-b9fe-a47f214fec69	2021-06-21 01:03:46.481	2021-06-21 01:03:46.488	Hussin	Omar	MALE	qJxRVsAC3MsXjHf	Breanne.Abshire87@hotmail.com	4	4	A	A	/static/images/avatars/avatar_6.png	3	4	9	student	4	4	0
-49	04c23fef-5c60-40d6-a8ad-c54c9cf2fba8	2021-06-21 01:03:46.481	2021-06-21 01:03:46.488	Mohamed	Sameh	MALE	qeu57xcm5FLaqY_	Birdie.Torphy10@gmail.com	2	2	A	A	/static/images/avatars/avatar_5.png	2	4	9	student	4	4	0
-50	c7072c05-f232-4b9f-8706-7ae95db9e41e	2021-06-21 01:03:46.481	2021-06-21 01:03:46.488	Ali	Hosni	MALE	PWVEREa7DXTjYRc	Krista32@gmail.com	3	2	A	A	/static/images/avatars/avatar_6.png	1	5	8	student	4	4	0
-51	9e202955-bc6b-4bcc-a9b0-ffd0745f5ee9	2021-06-21 01:03:46.482	2021-06-21 01:03:46.488	Ali	Ahmed	MALE	2fvjapeUPtCkhjm	Buddy38@hotmail.com	2	2	A	A	/static/images/avatars/avatar_5.png	1	4	7	student	4	4	0
-52	b5bb7802-cc61-429c-a5b0-93d9a99b7190	2021-06-21 01:03:46.482	2021-06-21 01:03:46.488	Kamal	Karim	MALE	GKoy2tO2g4rvGoK	Amara23@hotmail.com	4	2	A	A	/static/images/avatars/avatar_6.png	2	5	9	student	4	4	0
-53	bc72be12-9cdb-461f-9e7a-84fc5213279f	2021-06-21 01:03:46.482	2021-06-21 01:03:46.488	Hosni	Mohamed	MALE	nnooBXBNw4tqm5F	Ford.Torphy30@gmail.com	1	3	A	A	/static/images/avatars/avatar_4.png	3	4	2	student	4	4	0
-54	ab662291-1648-43e3-852c-f45a18378db3	2021-06-21 01:03:46.482	2021-06-21 01:03:46.488	Mohamed	Omar	MALE	XBVmrffqWCKbHfS	Cleo60@gmail.com	4	1	A	A	/static/images/avatars/avatar_4.png	1	4	10	student	4	4	0
-55	b92d4528-63b7-4597-86a5-b03817496ee7	2021-06-21 01:03:46.482	2021-06-21 01:03:46.488	Ali	Sameh	MALE	QcKdqhq8CUPi63L	Cary_Cruickshank52@yahoo.com	2	7	A	A	/static/images/avatars/avatar_5.png	1	5	4	student	4	4	0
-56	502687c4-1357-499c-9a6c-64f12fec996c	2021-06-21 01:03:46.482	2021-06-21 01:03:46.488	Ali	Karim	MALE	Zvi1nRPhMJGA6cg	Hank99@gmail.com	1	3	A	A	/static/images/avatars/avatar_4.png	2	4	1	student	4	4	0
-57	da5a35c5-3ea2-45d9-b740-2434e8ed102c	2021-06-21 01:03:46.482	2021-06-21 01:03:46.488	Abdelrahman	Mohamed	MALE	JReQ97CsvfotMG4	Stephany32@yahoo.com	3	6	A	A	/static/images/avatars/avatar_5.png	1	5	5	student	4	4	0
-58	1a6f472b-a2d1-4b58-a3e3-592634e9350c	2021-06-21 01:03:46.482	2021-06-21 01:03:46.488	Kamal	Ali	MALE	qtGOBDPGjfsLCZH	Vergie_Beer@hotmail.com	1	8	A	A	/static/images/avatars/avatar_5.png	3	5	2	student	4	4	0
-59	5ea4a110-8e30-4b57-bff3-ef8ec9777835	2021-06-21 01:03:46.483	2021-06-21 01:03:46.488	Kamal	Mohamed	MALE	M_mV2QcgWKz1qyu	Jaylin79@hotmail.com	2	4	A	A	/static/images/avatars/avatar_6.png	2	4	4	student	4	4	0
-60	7e2e67bf-d149-445c-bf87-b4b8f49f906d	2021-06-21 01:03:46.483	2021-06-21 01:03:46.488	Hosni	Kamal	MALE	QeH5IMoMdFJtbS8	Demetrius.Kovacek@hotmail.com	2	10	A	A	/static/images/avatars/avatar_6.png	1	4	7	student	4	4	0
-61	c472d362-6e52-4270-b256-0fca01697f41	2021-06-21 01:03:46.483	2021-06-21 01:03:46.488	Karim	Karim	MALE	IKUC7c97MLinVoh	Callie.DuBuque25@gmail.com	2	3	A	A	/static/images/avatars/avatar_5.png	2	4	3	student	4	4	0
-62	56bfd582-2b07-4817-a91d-6310583c3b29	2021-06-21 01:03:46.483	2021-06-21 01:03:46.488	Ahmed	Omar	MALE	5JT027gunP2meKM	Velva.Weimann@yahoo.com	3	8	A	A	/static/images/avatars/avatar_5.png	3	4	9	student	4	4	0
-63	fb376ec6-7c8e-43a6-9286-b8ae73da8cc1	2021-06-21 01:03:46.483	2021-06-21 01:03:46.488	Hosni	Mohamed	MALE	Bw_992hOBvXUDKv	Linwood82@yahoo.com	3	9	A	A	/static/images/avatars/avatar_5.png	1	4	10	student	4	4	0
-64	4c70fbde-28b5-4c5e-b8bb-60b76eeee5c9	2021-06-21 01:03:46.483	2021-06-21 01:03:46.488	Ahmed	Ali	MALE	HuzAhvPk70Ta9q2	Carmella69@hotmail.com	4	8	A	A	/static/images/avatars/avatar_5.png	1	4	4	student	4	4	0
-65	07fcb142-fa6c-44f1-a647-5b7460a71b9c	2021-06-21 01:03:46.483	2021-06-21 01:03:46.488	Hussin	Abdelrahman	MALE	6KbdCRMRARXd2Ao	Jaren.Parker97@gmail.com	1	9	A	A	/static/images/avatars/avatar_4.png	1	5	10	student	4	4	0
-66	7ebc16b4-1245-481a-bc67-a006d032aca7	2021-06-21 01:03:46.483	2021-06-21 01:03:46.488	Mohamed	Ahmed	MALE	DmhxVEzfr2hDXsz	Jett.Bayer75@hotmail.com	3	1	A	A	/static/images/avatars/avatar_4.png	2	5	6	student	4	4	0
-67	4808f46d-4494-4476-ac6f-2a51f95ece46	2021-06-21 01:03:46.483	2021-06-21 01:03:46.488	Abdelrahman	Kamal	MALE	VGWjaLbB6K8V7Uz	Skylar_McDermott19@gmail.com	3	3	A	A	/static/images/avatars/avatar_6.png	1	5	7	student	4	4	0
-68	abc9d262-7447-4205-9c7a-527d5648aea5	2021-06-21 01:03:46.484	2021-06-21 01:03:46.488	Abdelrahman	Omar	MALE	cdRxJzHEdivT9m_	Dasia63@gmail.com	2	7	A	A	/static/images/avatars/avatar_4.png	1	5	2	student	4	4	0
-69	f634c1eb-8623-4ae3-9406-8525bfc17f6f	2021-06-21 01:03:46.484	2021-06-21 01:03:46.488	Kamal	Ali	MALE	OvEnZYgJzTifAff	Oceane54@gmail.com	1	6	A	A	/static/images/avatars/avatar_5.png	2	5	7	student	4	4	0
-70	018497b1-f3c7-49bd-89fd-3bfbbc03b64b	2021-06-21 01:03:46.484	2021-06-21 01:03:46.488	Hussin	Kamal	MALE	mSwSJz9asTdyXDj	Eldora.Feeney@gmail.com	4	10	A	A	/static/images/avatars/avatar_6.png	2	5	5	student	4	4	0
-71	ab7c94a6-4c4b-4e18-93f8-1d5f0ee3f75b	2021-06-21 01:03:46.484	2021-06-21 01:03:46.488	Karim	Kamal	MALE	cacDNVlUWoasXei	Dolly82@gmail.com	4	1	A	A	/static/images/avatars/avatar_5.png	3	5	7	student	4	4	0
-72	609ae855-9514-4d65-8251-a175042d28c7	2021-06-21 01:03:46.484	2021-06-21 01:03:46.488	Ali	Mahmoud	MALE	n7PdXfMR2bGwUY4	Dorothy_Davis51@gmail.com	1	8	A	A	/static/images/avatars/avatar_5.png	2	4	3	student	4	4	0
-73	d95ea9a3-7aca-4b4a-ba94-8730596ea8b3	2021-06-21 01:03:46.484	2021-06-21 01:03:46.488	Mahmoud	Sameh	MALE	CRlEmYdjWCrhWng	Alphonso_Cremin@gmail.com	1	1	A	A	/static/images/avatars/avatar_4.png	1	5	6	student	4	4	0
-74	2fbe3c04-cd4f-44c7-8dad-055e0bf02d41	2021-06-21 01:03:46.484	2021-06-21 01:03:46.488	Ali	Hosni	MALE	y4YNyjVGq0SA4_m	Tyler81@gmail.com	2	8	A	A	/static/images/avatars/avatar_4.png	1	4	4	student	4	4	0
-75	0b92dee2-f68c-410b-83da-7c78daaf2391	2021-06-21 01:03:46.484	2021-06-21 01:03:46.488	Mohamed	Hosni	MALE	Kj7J3ciXwGDh0Ku	Nova93@hotmail.com	1	3	A	A	/static/images/avatars/avatar_6.png	2	4	2	student	4	4	0
-76	8d52c333-6a56-453b-92f2-bca45e28b7b7	2021-06-21 01:03:46.484	2021-06-21 01:03:46.488	Hosni	Mohamed	MALE	w5AgJYCuddT8BGN	Kevin.Olson@gmail.com	4	3	A	A	/static/images/avatars/avatar_4.png	2	4	9	student	4	4	0
-77	3d6afaf9-acd6-46a2-b715-af5595a53782	2021-06-21 01:03:46.485	2021-06-21 01:03:46.488	Mahmoud	Ali	MALE	Q1tcT76oOlFBKs1	Maureen21@yahoo.com	4	1	A	A	/static/images/avatars/avatar_4.png	2	4	1	student	4	4	0
-78	dffd3783-eafc-49c0-bdce-25ee780a20df	2021-06-21 01:03:46.485	2021-06-21 01:03:46.488	Hosni	Ali	MALE	Cniqob7230AH1ly	Sheila86@hotmail.com	3	5	A	A	/static/images/avatars/avatar_4.png	2	5	8	student	4	4	0
-79	2088629f-f872-4c9c-b09a-0b1ba9bac02f	2021-06-21 01:03:46.485	2021-06-21 01:03:46.488	Kamal	Mahmoud	MALE	p_ZXvo7IElHrmKX	Jayme_Macejkovic74@yahoo.com	3	4	A	A	/static/images/avatars/avatar_6.png	3	5	3	student	4	4	0
-80	e577f472-1d22-4090-b3bd-89bcf37dca3a	2021-06-21 01:03:46.485	2021-06-21 01:03:46.488	Hussin	Abdelrahman	MALE	qLQI5E9pwG8EC2U	Jamarcus50@gmail.com	4	2	A	A	/static/images/avatars/avatar_6.png	3	5	9	student	4	4	0
-81	f5c98144-d8b0-46f0-a352-97cd0e084ab9	2021-06-21 01:03:46.485	2021-06-21 01:03:46.488	Mohamed	Ahmed	MALE	uYIOTohPMdRgGh8	Leif.Roberts@gmail.com	1	8	A	A	/static/images/avatars/avatar_4.png	3	5	4	student	4	4	0
-82	b9961371-9f1f-4d2c-b3e3-f01cafa1e61a	2021-06-21 01:03:46.485	2021-06-21 01:03:46.488	Karim	Abdelrahman	MALE	I9v_rOYM5PQlU44	Marina_Durgan81@hotmail.com	3	4	A	A	/static/images/avatars/avatar_6.png	2	4	5	student	4	4	0
-83	80dd7069-5ca4-482a-a9f4-c8d5880a4f6f	2021-06-21 01:03:46.485	2021-06-21 01:03:46.489	Karim	Mahmoud	MALE	vdzcNL6sSzKdJ6c	Georgiana35@hotmail.com	4	4	A	A	/static/images/avatars/avatar_6.png	2	4	8	student	4	4	0
-84	cbf57982-6599-4ffc-9576-7dbdba3f50e7	2021-06-21 01:03:46.485	2021-06-21 01:03:46.489	Mohamed	Hosni	MALE	LgJ2gZVP1hKgTDf	Annette_Morissette34@yahoo.com	1	2	A	A	/static/images/avatars/avatar_6.png	2	4	5	student	4	4	0
-85	df012c6b-40e7-48d9-acc1-585fad44ceca	2021-06-21 01:03:46.486	2021-06-21 01:03:46.489	Mahmoud	Sameh	MALE	pYuUFe_Oqao9ffZ	Kaci.Braun68@gmail.com	2	7	A	A	/static/images/avatars/avatar_5.png	3	5	10	student	4	4	0
-86	5d704f12-9d0b-4d9d-abde-f83707408a43	2021-06-21 01:03:46.486	2021-06-21 01:03:46.489	Ali	Abdelrahman	MALE	yHv_O8rkOYCDc7w	Mateo.Cartwright@yahoo.com	4	8	A	A	/static/images/avatars/avatar_5.png	1	4	1	student	4	4	0
-87	e3effe62-dc2e-4cf1-894b-ad4b72c8fbd5	2021-06-21 01:03:46.486	2021-06-21 01:03:46.489	Ali	Karim	MALE	_AyF_jKGEYzb46e	Shyann.Stokes@yahoo.com	2	3	A	A	/static/images/avatars/avatar_4.png	1	4	1	student	4	4	0
-88	e5be09bf-9d0f-4f45-b518-6f68854281bd	2021-06-21 01:03:46.486	2021-06-21 01:03:46.489	Hosni	Hosni	MALE	s1Fw4GVIYlUoYf6	Napoleon_Kling@yahoo.com	2	6	A	A	/static/images/avatars/avatar_5.png	2	4	10	student	4	4	0
-89	2f529f0e-ba14-4655-8882-160b162a2d03	2021-06-21 01:03:46.486	2021-06-21 01:03:46.489	Karim	Hussin	MALE	UaHnjWSlA_EPde2	Quincy.Macejkovic72@yahoo.com	3	6	A	A	/static/images/avatars/avatar_5.png	3	5	8	student	4	4	0
-90	ab0f68cf-4b31-4136-a7f2-823388505071	2021-06-21 01:03:46.486	2021-06-21 01:03:46.489	Hosni	Hussin	MALE	gzArO09F6wY2dOK	Oleta.Langosh86@gmail.com	1	2	A	A	/static/images/avatars/avatar_5.png	1	4	1	student	4	4	0
-91	78a12364-c779-4edc-9629-0d63b4a51e29	2021-06-21 01:03:46.486	2021-06-21 01:03:46.489	Kamal	Mohamed	MALE	Wme9KwvqPJhsrxw	Micah_Cronin92@hotmail.com	3	5	A	A	/static/images/avatars/avatar_6.png	2	5	6	student	4	4	0
-92	10108d83-4b2c-4dbf-a005-ae24d5f33daf	2021-06-21 01:03:46.486	2021-06-21 01:03:46.489	Abdelrahman	Hosni	MALE	FVxxEXinuUJ5gZk	Haylee_Hessel91@gmail.com	1	7	A	A	/static/images/avatars/avatar_5.png	3	4	1	student	4	4	0
-93	5ac7c133-8c82-4fd7-a94f-62aa53549bfb	2021-06-21 01:03:46.486	2021-06-21 01:03:46.489	Kamal	Sameh	MALE	z3IpSmTLgyjOjRz	Cecelia38@yahoo.com	3	9	A	A	/static/images/avatars/avatar_4.png	3	5	7	student	4	4	0
-94	d6955aa6-88b0-4642-a780-9cb19b1a799d	2021-06-21 01:03:46.487	2021-06-21 01:03:46.489	Abdelrahman	Karim	MALE	2F_vl6aE0EieUDT	Brycen_Corkery@yahoo.com	2	1	A	A	/static/images/avatars/avatar_4.png	2	5	1	student	4	4	0
-95	f4425924-6267-45a2-ac36-fe73280fff78	2021-06-21 01:03:46.487	2021-06-21 01:03:46.489	Mahmoud	Mahmoud	MALE	yCiLV_RgLv6dQS2	Donato.Wehner72@hotmail.com	4	8	A	A	/static/images/avatars/avatar_4.png	3	5	9	student	4	4	0
-96	a080701f-52ce-451a-9a74-1ee7750dfa66	2021-06-21 01:03:46.487	2021-06-21 01:03:46.489	Karim	Sameh	MALE	Lwa5QMUs3gPetAk	Fae53@yahoo.com	1	10	A	A	/static/images/avatars/avatar_6.png	3	5	4	student	4	4	0
-97	9b60fe41-915a-417f-8e33-8d2c42497f33	2021-06-21 01:03:46.487	2021-06-21 01:03:46.489	Ali	Mohamed	MALE	qIFRE48x06xXjtl	Tania11@hotmail.com	4	6	A	A	/static/images/avatars/avatar_4.png	2	4	2	student	4	4	0
-98	a72a2069-7539-447e-9646-af87612477a6	2021-06-21 01:03:46.487	2021-06-21 01:03:46.489	Abdelrahman	Ali	MALE	4XLA3pIKgatvAUn	Sonya46@gmail.com	2	3	A	A	/static/images/avatars/avatar_5.png	3	4	1	student	4	4	0
-99	e661a4c1-b40b-48f8-b680-becbb33457ca	2021-06-21 01:03:46.487	2021-06-21 01:03:46.489	Hussin	Ali	MALE	0h0A9EYIzKIcCac	Rachael.Rowe7@gmail.com	3	9	A	A	/static/images/avatars/avatar_4.png	1	4	3	student	4	4	0
-100	c8eec2dc-cf32-486e-8844-a96791dac83e	2021-06-21 01:03:46.487	2021-06-21 01:03:46.489	Sameh	Sameh	MALE	Pr1gbFD8A0RveAF	Christy_Goldner@yahoo.com	1	4	A	A	/static/images/avatars/avatar_5.png	3	5	9	student	4	4	0
-101	6583be8f-04f6-40ba-ae72-8e9376c3b796	2021-07-03 21:18:21.877	1970-01-01 00:00:00	test	test	MALE	fdfd	test@gmail.com	1	1	A	A	/static/images/avatars/avatar_4	\N	\N	1	student	4	4	0
-102	113ddde7-f14b-4108-934e-3057e35b4aaa	2021-07-04 16:20:00.76	2021-07-04 16:20:00.761	test	test	MALE	9_UaRTOAzwi2kiA	testtest@yahoo.com	1	9	A	A	/static/images/avatars/avatar_4	\N	\N	1	student	4	4	0
-1	5c1212a5-5599-4d43-adff-f9b34df42b21	2021-06-21 01:03:46.474	2021-07-04 18:44:56.897	Ali	Sameh	MALE	0b7Ce0tZKxqnIEx	Isabell_Altenwerth96@gmail.com	1	9	A	A	/static/images/avatars/avatar_4.png	2	3	1	student	3.860606060606061	2.85	0
+COPY public."Student" (id, "uniCode", "createdAt", "updatedAt", fname, lname, gender, password, email, "supervisorId", avatar, "majorId", "minorId", "coordinatorId", role, "numericalGPA", "numericalLastTermGPA", "creditDone", level) FROM stdin;
+2	28f1aab7-5689-43f5-a34d-764b234dc995	2021-06-21 01:03:46.475	2021-06-21 01:03:46.488	Abdelrahman	Mohamed	MALE	LQ5cDpRxrAskL6O	Darren82@hotmail.com	1	/static/images/avatars/avatar_4.png	1	4	9	student	4	4	0	1
+3	f46ef056-0bf5-424c-9b2a-061598b89422	2021-06-21 01:03:46.475	2021-06-21 01:03:46.488	Ali	Abdelrahman	MALE	NdztJCA9AW2aYWd	Yessenia53@yahoo.com	8	/static/images/avatars/avatar_5.png	3	5	5	student	4	4	0	1
+4	1c55671e-76ca-4536-80ca-26d33b8246ba	2021-06-21 01:03:46.475	2021-06-21 01:03:46.488	Omar	Hussin	MALE	KlfSkP4VdGZ7uD2	Aida.Goldner@yahoo.com	5	/static/images/avatars/avatar_4.png	3	5	8	student	4	4	0	1
+5	7a8272d5-3386-457d-ad52-44184272e615	2021-06-21 01:03:46.475	2021-06-21 01:03:46.488	Omar	Ahmed	MALE	Xd5f5BXRyY7TA9z	Gino67@gmail.com	5	/static/images/avatars/avatar_6.png	3	4	2	student	4	4	0	1
+6	dd9a0714-7543-44a0-896d-85ff79d2fd0b	2021-06-21 01:03:46.475	2021-06-21 01:03:46.488	Ali	Hosni	MALE	aR1nzaSbdGjXypT	Camilla.Bins79@yahoo.com	10	/static/images/avatars/avatar_4.png	3	5	9	student	4	4	0	1
+7	2dcbecac-2d86-4100-b583-7f9b3217de46	2021-06-21 01:03:46.475	2021-06-21 01:03:46.488	Ahmed	Hosni	MALE	saw60Fv_iWTgHWM	Angelo36@hotmail.com	6	/static/images/avatars/avatar_5.png	3	5	8	student	4	4	0	1
+8	95b2c389-2468-40cd-9cc5-7ff680da6de7	2021-06-21 01:03:46.476	2021-06-21 01:03:46.488	Mahmoud	Ali	MALE	F0zSMLywtD0AvhK	Lafayette.Stehr@yahoo.com	4	/static/images/avatars/avatar_4.png	1	5	10	student	4	4	0	1
+9	079f22b4-8943-4287-91ce-ecbf9760b064	2021-06-21 01:03:46.476	2021-06-21 01:03:46.488	Abdelrahman	Hosni	MALE	lfGqJAdiq0Y9PEN	Mariam_Ebert@hotmail.com	9	/static/images/avatars/avatar_4.png	3	5	1	student	4	4	0	1
+10	5c654b8e-b872-4bfa-8434-2f6ba37a8a44	2021-06-21 01:03:46.476	2021-06-21 01:03:46.488	Karim	Mohamed	MALE	KWw2Lqjw5dPNuXd	Kraig_Rogahn@hotmail.com	3	/static/images/avatars/avatar_6.png	1	4	7	student	4	4	0	1
+11	0416fc35-a20b-4f8c-8888-2f5b537c8454	2021-06-21 01:03:46.476	2021-06-21 01:03:46.488	Mohamed	Abdelrahman	MALE	ug5WZDxdoUtONGz	Brooke_Hermann@gmail.com	9	/static/images/avatars/avatar_6.png	3	4	6	student	4	4	0	1
+12	046a63d0-1075-4a7a-87bc-b0caa4d081e0	2021-06-21 01:03:46.476	2021-06-21 01:03:46.488	Ali	Sameh	MALE	Lz4pOWRqMwZa9gx	Herminia71@hotmail.com	8	/static/images/avatars/avatar_6.png	2	4	7	student	4	4	0	1
+14	c36fcddd-d9f7-4ff4-a887-12d8b1e26e2f	2021-06-21 01:03:46.477	2021-06-21 01:03:46.488	Mahmoud	Ahmed	MALE	bd0fjoaUFxcUpAZ	Taurean.Parker@hotmail.com	1	/static/images/avatars/avatar_5.png	3	4	9	student	4	4	0	1
+15	cce02cb4-6a74-4132-822c-38af2d51af49	2021-06-21 01:03:46.477	2021-06-21 01:03:46.488	Kamal	Ali	MALE	816EtB_UMFuqirm	Aliya_Yundt74@hotmail.com	4	/static/images/avatars/avatar_6.png	1	4	1	student	4	4	0	1
+16	42a43f9b-793a-4184-80ac-674ff2de12f8	2021-06-21 01:03:46.477	2021-06-21 01:03:46.488	Mahmoud	Mahmoud	MALE	qhJbzptuAWxU_Pa	Mertie_Rohan97@gmail.com	2	/static/images/avatars/avatar_6.png	3	4	9	student	4	4	0	1
+17	065aa16e-d7b5-4aff-a99f-cf1b51124faf	2021-06-21 01:03:46.477	2021-06-21 01:03:46.488	Mohamed	Omar	MALE	h1O_EOOZ2MQrWXz	Julie.Lowe@hotmail.com	2	/static/images/avatars/avatar_6.png	2	4	4	student	4	4	0	1
+18	cf222147-8606-4824-8e94-7d02ea61000e	2021-06-21 01:03:46.477	2021-06-21 01:03:46.488	Kamal	Abdelrahman	MALE	oNWqBZQR4mMiAeY	Garnett55@gmail.com	1	/static/images/avatars/avatar_4.png	3	4	7	student	4	4	0	1
+19	78e92948-9b22-4ca5-8766-acf956bdd71b	2021-06-21 01:03:46.477	2021-06-21 01:03:46.488	Abdelrahman	Ali	MALE	GEviNCCcn3yELT0	Luz.Leannon79@hotmail.com	6	/static/images/avatars/avatar_4.png	3	5	2	student	4	4	0	1
+20	704c091e-2ba6-494f-b7ff-5418e4e00300	2021-06-21 01:03:46.478	2021-06-21 01:03:46.488	Ahmed	Ali	MALE	gZ694mc7UrCBMhX	Elena94@gmail.com	3	/static/images/avatars/avatar_4.png	2	4	5	student	4	4	0	1
+21	558d5ca3-94e2-4d18-bdde-6341c6bb262d	2021-06-21 01:03:46.478	2021-06-21 01:03:46.488	Hussin	Hussin	MALE	aYh4HlXRKClDcSz	Faye29@gmail.com	2	/static/images/avatars/avatar_4.png	2	5	2	student	4	4	0	1
+22	9cc812ca-c651-4a81-b104-4dbbf402d544	2021-06-21 01:03:46.478	2021-06-21 01:03:46.488	Mahmoud	Omar	MALE	GCYb_LiXUokYCEp	Alba32@yahoo.com	2	/static/images/avatars/avatar_6.png	1	4	5	student	4	4	0	1
+23	bce97107-7eca-4487-8041-cc5eda1932d3	2021-06-21 01:03:46.478	2021-06-21 01:03:46.488	Abdelrahman	Hussin	MALE	M8chbifkXWaetsH	Lonie.Ziemann@hotmail.com	4	/static/images/avatars/avatar_4.png	2	4	2	student	4	4	0	1
+24	1f9ce629-8607-49b4-83b5-8d089d960740	2021-06-21 01:03:46.478	2021-06-21 01:03:46.488	Abdelrahman	Hussin	MALE	qf7uFtmS4oYYALE	Freddy.Crooks50@hotmail.com	4	/static/images/avatars/avatar_6.png	1	5	7	student	4	4	0	1
+25	284d60f3-384b-42ab-8f52-5ae6bef66764	2021-06-21 01:03:46.478	2021-06-21 01:03:46.488	Mahmoud	Ahmed	MALE	32C5md12XBaF_XT	Leland85@hotmail.com	3	/static/images/avatars/avatar_5.png	1	5	3	student	4	4	0	1
+26	0639ed2d-7307-4c12-a576-799d7dafea81	2021-06-21 01:03:46.479	2021-06-21 01:03:46.488	Hussin	Abdelrahman	MALE	xA1jwgpUyVvvaYv	Gabe_Barrows35@gmail.com	5	/static/images/avatars/avatar_4.png	2	4	1	student	4	4	0	1
+27	d8b36ff6-dbba-4c12-a3fc-3c7bb3940472	2021-06-21 01:03:46.479	2021-06-21 01:03:46.488	Mohamed	Ahmed	MALE	2FdOzhEGgLJxrCv	Hollis.Hamill@gmail.com	10	/static/images/avatars/avatar_5.png	1	5	7	student	4	4	0	1
+28	461db074-9d5f-4461-a7bc-c4251d7e8e55	2021-06-21 01:03:46.479	2021-06-21 01:03:46.488	Karim	Ahmed	MALE	WQ44rf8YyEGhTen	Bernard_Gusikowski@gmail.com	1	/static/images/avatars/avatar_5.png	2	4	6	student	4	4	0	1
+29	12f25c95-76c5-4bb7-b24e-e48e14135e29	2021-06-21 01:03:46.479	2021-06-21 01:03:46.488	Mohamed	Ahmed	MALE	FYYXO3TyUjIfEMu	Dax89@gmail.com	8	/static/images/avatars/avatar_6.png	2	4	2	student	4	4	0	1
+30	e7cd6110-9bb7-4ce7-bfe9-27466ddd939a	2021-06-21 01:03:46.479	2021-06-21 01:03:46.488	Mohamed	Kamal	MALE	l2O4iTyssUtxN6e	Ophelia.Bradtke@yahoo.com	1	/static/images/avatars/avatar_5.png	3	4	1	student	4	4	0	1
+31	ebd6756f-039c-4a16-8c71-f89389fafc27	2021-06-21 01:03:46.479	2021-06-21 01:03:46.488	Ahmed	Ahmed	MALE	XOA0r24XByoxMoi	Colten.Trantow2@gmail.com	5	/static/images/avatars/avatar_4.png	2	4	1	student	4	4	0	1
+32	e11b0fbe-f7f7-4ae0-978c-506c3ae50bc4	2021-06-21 01:03:46.479	2021-06-21 01:03:46.488	Sameh	Omar	MALE	cDkgCdbMPYMmYA3	Jace_Kub23@yahoo.com	3	/static/images/avatars/avatar_4.png	1	4	3	student	4	4	0	1
+33	c64a3160-fe2e-409a-83eb-96f42db37b42	2021-06-21 01:03:46.48	2021-06-21 01:03:46.488	Karim	Hussin	MALE	8kwkOICxtmUgGnw	Jefferey.Wuckert@gmail.com	8	/static/images/avatars/avatar_4.png	3	5	6	student	4	4	0	1
+34	ab176dd3-0c4e-4b47-9fe9-5e54e378b9d9	2021-06-21 01:03:46.48	2021-06-21 01:03:46.488	Karim	Kamal	MALE	Q_rxR85wVfNUVNI	Ezequiel7@hotmail.com	4	/static/images/avatars/avatar_4.png	3	4	3	student	4	4	0	1
+13	19a0ac5a-1028-4aa8-b92c-874033512d74	2021-06-21 01:03:46.476	2021-07-04 18:31:25.889	Ahmed	Karim	MALE	Kj_mmPF4VNjnl20	Giuseppe.Kunde46@hotmail.com	9	/static/images/avatars/avatar_4.png	3	2	1	student	4	4	0	1
+35	9c4e4067-76c7-462b-b2da-c3d65c475189	2021-06-21 01:03:46.48	2021-06-21 01:03:46.488	Sameh	Hussin	MALE	H8YRYBwNrvPONFi	Deion.Lemke72@yahoo.com	1	/static/images/avatars/avatar_5.png	3	5	10	student	4	4	0	1
+36	bbcc19a2-732c-4b9b-a986-7ad8e738fc89	2021-06-21 01:03:46.48	2021-06-21 01:03:46.488	Abdelrahman	Ali	MALE	12Ytqi1EFXSe3Dc	Avery78@gmail.com	2	/static/images/avatars/avatar_6.png	3	4	8	student	4	4	0	1
+37	6cb08ac0-407e-4056-b59c-eb32b4731063	2021-06-21 01:03:46.48	2021-06-21 01:03:46.488	Hosni	Ahmed	MALE	e6C5KYgH0OLnaNQ	Ryan.Kshlerin@gmail.com	10	/static/images/avatars/avatar_5.png	1	4	4	student	4	4	0	1
+38	c237b8cb-d0e8-4a40-bec5-705d14ed50f3	2021-06-21 01:03:46.48	2021-06-21 01:03:46.488	Hussin	Sameh	MALE	HQ0NJuZTwGD_Jkk	Julie.Hahn49@gmail.com	8	/static/images/avatars/avatar_5.png	1	5	6	student	4	4	0	1
+39	5c53e029-0bf2-474c-999d-b7f9ffeab28c	2021-06-21 01:03:46.48	2021-06-21 01:03:46.488	Sameh	Karim	MALE	dwkuD9hNiY1S8XM	Emely_Gulgowski@gmail.com	8	/static/images/avatars/avatar_4.png	1	4	8	student	4	4	0	1
+40	160319c9-2b2b-4026-aa1b-3ce531d10266	2021-06-21 01:03:46.48	2021-06-21 01:03:46.488	Hosni	Mahmoud	MALE	c6mqo1Eka_wZ_28	Floyd.Wilderman@yahoo.com	3	/static/images/avatars/avatar_5.png	1	5	4	student	4	4	0	1
+41	907ca044-4813-4e93-9632-a0805b633a32	2021-06-21 01:03:46.48	2021-06-21 01:03:46.488	Hosni	Kamal	MALE	nVRWxkKv7dZP5Ir	Mac43@yahoo.com	1	/static/images/avatars/avatar_5.png	2	4	4	student	4	4	0	1
+42	94ee4295-c397-4f4d-96e0-07e3b398881e	2021-06-21 01:03:46.481	2021-06-21 01:03:46.488	Sameh	Abdelrahman	MALE	rLArmgcfXGc6N1P	Alivia.Borer18@yahoo.com	7	/static/images/avatars/avatar_6.png	2	5	7	student	4	4	0	1
+43	5b064f98-e7e3-451f-a0aa-3f56c764cdd5	2021-06-21 01:03:46.481	2021-06-21 01:03:46.488	Hussin	Karim	MALE	fb8Gs3cDpoZItg6	Alejandra36@hotmail.com	4	/static/images/avatars/avatar_4.png	1	4	7	student	4	4	0	1
+44	50e565d6-f614-4b7b-bb49-9fe0791d4fb4	2021-06-21 01:03:46.481	2021-06-21 01:03:46.488	Sameh	Mohamed	MALE	j0uxdXH0yKdE0bn	Raphaelle.Cruickshank@yahoo.com	3	/static/images/avatars/avatar_5.png	3	4	1	student	4	4	0	1
+45	cb444df2-d3db-412f-86ff-716dce8027ff	2021-06-21 01:03:46.481	2021-06-21 01:03:46.488	Ali	Mohamed	MALE	C2BoYtkIDa9P4Se	Dakota_Hermann@hotmail.com	3	/static/images/avatars/avatar_5.png	1	5	2	student	4	4	0	1
+46	6f5638be-c223-4807-a35f-5ed7fd1b02f8	2021-06-21 01:03:46.481	2021-06-21 01:03:46.488	Mohamed	Abdelrahman	MALE	6a3ycYLHBOxOEWY	Anabelle_Sanford72@yahoo.com	4	/static/images/avatars/avatar_4.png	2	4	8	student	4	4	0	1
+47	49818bec-31ae-4648-b5d7-287c5543f582	2021-06-21 01:03:46.481	2021-06-21 01:03:46.488	Ahmed	Hosni	MALE	x8xR5mMPCPAwO2r	Elissa40@yahoo.com	3	/static/images/avatars/avatar_4.png	3	4	3	student	4	4	0	1
+48	70e9068a-4967-4929-b9fe-a47f214fec69	2021-06-21 01:03:46.481	2021-06-21 01:03:46.488	Hussin	Omar	MALE	qJxRVsAC3MsXjHf	Breanne.Abshire87@hotmail.com	4	/static/images/avatars/avatar_6.png	3	4	9	student	4	4	0	1
+49	04c23fef-5c60-40d6-a8ad-c54c9cf2fba8	2021-06-21 01:03:46.481	2021-06-21 01:03:46.488	Mohamed	Sameh	MALE	qeu57xcm5FLaqY_	Birdie.Torphy10@gmail.com	2	/static/images/avatars/avatar_5.png	2	4	9	student	4	4	0	1
+50	c7072c05-f232-4b9f-8706-7ae95db9e41e	2021-06-21 01:03:46.481	2021-06-21 01:03:46.488	Ali	Hosni	MALE	PWVEREa7DXTjYRc	Krista32@gmail.com	2	/static/images/avatars/avatar_6.png	1	5	8	student	4	4	0	1
+51	9e202955-bc6b-4bcc-a9b0-ffd0745f5ee9	2021-06-21 01:03:46.482	2021-06-21 01:03:46.488	Ali	Ahmed	MALE	2fvjapeUPtCkhjm	Buddy38@hotmail.com	2	/static/images/avatars/avatar_5.png	1	4	7	student	4	4	0	1
+52	b5bb7802-cc61-429c-a5b0-93d9a99b7190	2021-06-21 01:03:46.482	2021-06-21 01:03:46.488	Kamal	Karim	MALE	GKoy2tO2g4rvGoK	Amara23@hotmail.com	2	/static/images/avatars/avatar_6.png	2	5	9	student	4	4	0	1
+53	bc72be12-9cdb-461f-9e7a-84fc5213279f	2021-06-21 01:03:46.482	2021-06-21 01:03:46.488	Hosni	Mohamed	MALE	nnooBXBNw4tqm5F	Ford.Torphy30@gmail.com	3	/static/images/avatars/avatar_4.png	3	4	2	student	4	4	0	1
+54	ab662291-1648-43e3-852c-f45a18378db3	2021-06-21 01:03:46.482	2021-06-21 01:03:46.488	Mohamed	Omar	MALE	XBVmrffqWCKbHfS	Cleo60@gmail.com	1	/static/images/avatars/avatar_4.png	1	4	10	student	4	4	0	1
+55	b92d4528-63b7-4597-86a5-b03817496ee7	2021-06-21 01:03:46.482	2021-06-21 01:03:46.488	Ali	Sameh	MALE	QcKdqhq8CUPi63L	Cary_Cruickshank52@yahoo.com	7	/static/images/avatars/avatar_5.png	1	5	4	student	4	4	0	1
+56	502687c4-1357-499c-9a6c-64f12fec996c	2021-06-21 01:03:46.482	2021-06-21 01:03:46.488	Ali	Karim	MALE	Zvi1nRPhMJGA6cg	Hank99@gmail.com	3	/static/images/avatars/avatar_4.png	2	4	1	student	4	4	0	1
+57	da5a35c5-3ea2-45d9-b740-2434e8ed102c	2021-06-21 01:03:46.482	2021-06-21 01:03:46.488	Abdelrahman	Mohamed	MALE	JReQ97CsvfotMG4	Stephany32@yahoo.com	6	/static/images/avatars/avatar_5.png	1	5	5	student	4	4	0	1
+58	1a6f472b-a2d1-4b58-a3e3-592634e9350c	2021-06-21 01:03:46.482	2021-06-21 01:03:46.488	Kamal	Ali	MALE	qtGOBDPGjfsLCZH	Vergie_Beer@hotmail.com	8	/static/images/avatars/avatar_5.png	3	5	2	student	4	4	0	1
+59	5ea4a110-8e30-4b57-bff3-ef8ec9777835	2021-06-21 01:03:46.483	2021-06-21 01:03:46.488	Kamal	Mohamed	MALE	M_mV2QcgWKz1qyu	Jaylin79@hotmail.com	4	/static/images/avatars/avatar_6.png	2	4	4	student	4	4	0	1
+60	7e2e67bf-d149-445c-bf87-b4b8f49f906d	2021-06-21 01:03:46.483	2021-06-21 01:03:46.488	Hosni	Kamal	MALE	QeH5IMoMdFJtbS8	Demetrius.Kovacek@hotmail.com	10	/static/images/avatars/avatar_6.png	1	4	7	student	4	4	0	1
+61	c472d362-6e52-4270-b256-0fca01697f41	2021-06-21 01:03:46.483	2021-06-21 01:03:46.488	Karim	Karim	MALE	IKUC7c97MLinVoh	Callie.DuBuque25@gmail.com	3	/static/images/avatars/avatar_5.png	2	4	3	student	4	4	0	1
+62	56bfd582-2b07-4817-a91d-6310583c3b29	2021-06-21 01:03:46.483	2021-06-21 01:03:46.488	Ahmed	Omar	MALE	5JT027gunP2meKM	Velva.Weimann@yahoo.com	8	/static/images/avatars/avatar_5.png	3	4	9	student	4	4	0	1
+63	fb376ec6-7c8e-43a6-9286-b8ae73da8cc1	2021-06-21 01:03:46.483	2021-06-21 01:03:46.488	Hosni	Mohamed	MALE	Bw_992hOBvXUDKv	Linwood82@yahoo.com	9	/static/images/avatars/avatar_5.png	1	4	10	student	4	4	0	1
+64	4c70fbde-28b5-4c5e-b8bb-60b76eeee5c9	2021-06-21 01:03:46.483	2021-06-21 01:03:46.488	Ahmed	Ali	MALE	HuzAhvPk70Ta9q2	Carmella69@hotmail.com	8	/static/images/avatars/avatar_5.png	1	4	4	student	4	4	0	1
+65	07fcb142-fa6c-44f1-a647-5b7460a71b9c	2021-06-21 01:03:46.483	2021-06-21 01:03:46.488	Hussin	Abdelrahman	MALE	6KbdCRMRARXd2Ao	Jaren.Parker97@gmail.com	9	/static/images/avatars/avatar_4.png	1	5	10	student	4	4	0	1
+66	7ebc16b4-1245-481a-bc67-a006d032aca7	2021-06-21 01:03:46.483	2021-06-21 01:03:46.488	Mohamed	Ahmed	MALE	DmhxVEzfr2hDXsz	Jett.Bayer75@hotmail.com	1	/static/images/avatars/avatar_4.png	2	5	6	student	4	4	0	1
+67	4808f46d-4494-4476-ac6f-2a51f95ece46	2021-06-21 01:03:46.483	2021-06-21 01:03:46.488	Abdelrahman	Kamal	MALE	VGWjaLbB6K8V7Uz	Skylar_McDermott19@gmail.com	3	/static/images/avatars/avatar_6.png	1	5	7	student	4	4	0	1
+68	abc9d262-7447-4205-9c7a-527d5648aea5	2021-06-21 01:03:46.484	2021-06-21 01:03:46.488	Abdelrahman	Omar	MALE	cdRxJzHEdivT9m_	Dasia63@gmail.com	7	/static/images/avatars/avatar_4.png	1	5	2	student	4	4	0	1
+69	f634c1eb-8623-4ae3-9406-8525bfc17f6f	2021-06-21 01:03:46.484	2021-06-21 01:03:46.488	Kamal	Ali	MALE	OvEnZYgJzTifAff	Oceane54@gmail.com	6	/static/images/avatars/avatar_5.png	2	5	7	student	4	4	0	1
+70	018497b1-f3c7-49bd-89fd-3bfbbc03b64b	2021-06-21 01:03:46.484	2021-06-21 01:03:46.488	Hussin	Kamal	MALE	mSwSJz9asTdyXDj	Eldora.Feeney@gmail.com	10	/static/images/avatars/avatar_6.png	2	5	5	student	4	4	0	1
+71	ab7c94a6-4c4b-4e18-93f8-1d5f0ee3f75b	2021-06-21 01:03:46.484	2021-06-21 01:03:46.488	Karim	Kamal	MALE	cacDNVlUWoasXei	Dolly82@gmail.com	1	/static/images/avatars/avatar_5.png	3	5	7	student	4	4	0	1
+72	609ae855-9514-4d65-8251-a175042d28c7	2021-06-21 01:03:46.484	2021-06-21 01:03:46.488	Ali	Mahmoud	MALE	n7PdXfMR2bGwUY4	Dorothy_Davis51@gmail.com	8	/static/images/avatars/avatar_5.png	2	4	3	student	4	4	0	1
+73	d95ea9a3-7aca-4b4a-ba94-8730596ea8b3	2021-06-21 01:03:46.484	2021-06-21 01:03:46.488	Mahmoud	Sameh	MALE	CRlEmYdjWCrhWng	Alphonso_Cremin@gmail.com	1	/static/images/avatars/avatar_4.png	1	5	6	student	4	4	0	1
+74	2fbe3c04-cd4f-44c7-8dad-055e0bf02d41	2021-06-21 01:03:46.484	2021-06-21 01:03:46.488	Ali	Hosni	MALE	y4YNyjVGq0SA4_m	Tyler81@gmail.com	8	/static/images/avatars/avatar_4.png	1	4	4	student	4	4	0	1
+75	0b92dee2-f68c-410b-83da-7c78daaf2391	2021-06-21 01:03:46.484	2021-06-21 01:03:46.488	Mohamed	Hosni	MALE	Kj7J3ciXwGDh0Ku	Nova93@hotmail.com	3	/static/images/avatars/avatar_6.png	2	4	2	student	4	4	0	1
+76	8d52c333-6a56-453b-92f2-bca45e28b7b7	2021-06-21 01:03:46.484	2021-06-21 01:03:46.488	Hosni	Mohamed	MALE	w5AgJYCuddT8BGN	Kevin.Olson@gmail.com	3	/static/images/avatars/avatar_4.png	2	4	9	student	4	4	0	1
+77	3d6afaf9-acd6-46a2-b715-af5595a53782	2021-06-21 01:03:46.485	2021-06-21 01:03:46.488	Mahmoud	Ali	MALE	Q1tcT76oOlFBKs1	Maureen21@yahoo.com	1	/static/images/avatars/avatar_4.png	2	4	1	student	4	4	0	1
+78	dffd3783-eafc-49c0-bdce-25ee780a20df	2021-06-21 01:03:46.485	2021-06-21 01:03:46.488	Hosni	Ali	MALE	Cniqob7230AH1ly	Sheila86@hotmail.com	5	/static/images/avatars/avatar_4.png	2	5	8	student	4	4	0	1
+79	2088629f-f872-4c9c-b09a-0b1ba9bac02f	2021-06-21 01:03:46.485	2021-06-21 01:03:46.488	Kamal	Mahmoud	MALE	p_ZXvo7IElHrmKX	Jayme_Macejkovic74@yahoo.com	4	/static/images/avatars/avatar_6.png	3	5	3	student	4	4	0	1
+80	e577f472-1d22-4090-b3bd-89bcf37dca3a	2021-06-21 01:03:46.485	2021-06-21 01:03:46.488	Hussin	Abdelrahman	MALE	qLQI5E9pwG8EC2U	Jamarcus50@gmail.com	2	/static/images/avatars/avatar_6.png	3	5	9	student	4	4	0	1
+81	f5c98144-d8b0-46f0-a352-97cd0e084ab9	2021-06-21 01:03:46.485	2021-06-21 01:03:46.488	Mohamed	Ahmed	MALE	uYIOTohPMdRgGh8	Leif.Roberts@gmail.com	8	/static/images/avatars/avatar_4.png	3	5	4	student	4	4	0	1
+82	b9961371-9f1f-4d2c-b3e3-f01cafa1e61a	2021-06-21 01:03:46.485	2021-06-21 01:03:46.488	Karim	Abdelrahman	MALE	I9v_rOYM5PQlU44	Marina_Durgan81@hotmail.com	4	/static/images/avatars/avatar_6.png	2	4	5	student	4	4	0	1
+83	80dd7069-5ca4-482a-a9f4-c8d5880a4f6f	2021-06-21 01:03:46.485	2021-06-21 01:03:46.489	Karim	Mahmoud	MALE	vdzcNL6sSzKdJ6c	Georgiana35@hotmail.com	4	/static/images/avatars/avatar_6.png	2	4	8	student	4	4	0	1
+84	cbf57982-6599-4ffc-9576-7dbdba3f50e7	2021-06-21 01:03:46.485	2021-06-21 01:03:46.489	Mohamed	Hosni	MALE	LgJ2gZVP1hKgTDf	Annette_Morissette34@yahoo.com	2	/static/images/avatars/avatar_6.png	2	4	5	student	4	4	0	1
+85	df012c6b-40e7-48d9-acc1-585fad44ceca	2021-06-21 01:03:46.486	2021-06-21 01:03:46.489	Mahmoud	Sameh	MALE	pYuUFe_Oqao9ffZ	Kaci.Braun68@gmail.com	7	/static/images/avatars/avatar_5.png	3	5	10	student	4	4	0	1
+86	5d704f12-9d0b-4d9d-abde-f83707408a43	2021-06-21 01:03:46.486	2021-06-21 01:03:46.489	Ali	Abdelrahman	MALE	yHv_O8rkOYCDc7w	Mateo.Cartwright@yahoo.com	8	/static/images/avatars/avatar_5.png	1	4	1	student	4	4	0	1
+87	e3effe62-dc2e-4cf1-894b-ad4b72c8fbd5	2021-06-21 01:03:46.486	2021-06-21 01:03:46.489	Ali	Karim	MALE	_AyF_jKGEYzb46e	Shyann.Stokes@yahoo.com	3	/static/images/avatars/avatar_4.png	1	4	1	student	4	4	0	1
+88	e5be09bf-9d0f-4f45-b518-6f68854281bd	2021-06-21 01:03:46.486	2021-06-21 01:03:46.489	Hosni	Hosni	MALE	s1Fw4GVIYlUoYf6	Napoleon_Kling@yahoo.com	6	/static/images/avatars/avatar_5.png	2	4	10	student	4	4	0	1
+89	2f529f0e-ba14-4655-8882-160b162a2d03	2021-06-21 01:03:46.486	2021-06-21 01:03:46.489	Karim	Hussin	MALE	UaHnjWSlA_EPde2	Quincy.Macejkovic72@yahoo.com	6	/static/images/avatars/avatar_5.png	3	5	8	student	4	4	0	1
+90	ab0f68cf-4b31-4136-a7f2-823388505071	2021-06-21 01:03:46.486	2021-06-21 01:03:46.489	Hosni	Hussin	MALE	gzArO09F6wY2dOK	Oleta.Langosh86@gmail.com	2	/static/images/avatars/avatar_5.png	1	4	1	student	4	4	0	1
+91	78a12364-c779-4edc-9629-0d63b4a51e29	2021-06-21 01:03:46.486	2021-06-21 01:03:46.489	Kamal	Mohamed	MALE	Wme9KwvqPJhsrxw	Micah_Cronin92@hotmail.com	5	/static/images/avatars/avatar_6.png	2	5	6	student	4	4	0	1
+92	10108d83-4b2c-4dbf-a005-ae24d5f33daf	2021-06-21 01:03:46.486	2021-06-21 01:03:46.489	Abdelrahman	Hosni	MALE	FVxxEXinuUJ5gZk	Haylee_Hessel91@gmail.com	7	/static/images/avatars/avatar_5.png	3	4	1	student	4	4	0	1
+93	5ac7c133-8c82-4fd7-a94f-62aa53549bfb	2021-06-21 01:03:46.486	2021-06-21 01:03:46.489	Kamal	Sameh	MALE	z3IpSmTLgyjOjRz	Cecelia38@yahoo.com	9	/static/images/avatars/avatar_4.png	3	5	7	student	4	4	0	1
+94	d6955aa6-88b0-4642-a780-9cb19b1a799d	2021-06-21 01:03:46.487	2021-06-21 01:03:46.489	Abdelrahman	Karim	MALE	2F_vl6aE0EieUDT	Brycen_Corkery@yahoo.com	1	/static/images/avatars/avatar_4.png	2	5	1	student	4	4	0	1
+95	f4425924-6267-45a2-ac36-fe73280fff78	2021-06-21 01:03:46.487	2021-06-21 01:03:46.489	Mahmoud	Mahmoud	MALE	yCiLV_RgLv6dQS2	Donato.Wehner72@hotmail.com	8	/static/images/avatars/avatar_4.png	3	5	9	student	4	4	0	1
+96	a080701f-52ce-451a-9a74-1ee7750dfa66	2021-06-21 01:03:46.487	2021-06-21 01:03:46.489	Karim	Sameh	MALE	Lwa5QMUs3gPetAk	Fae53@yahoo.com	10	/static/images/avatars/avatar_6.png	3	5	4	student	4	4	0	1
+97	9b60fe41-915a-417f-8e33-8d2c42497f33	2021-06-21 01:03:46.487	2021-06-21 01:03:46.489	Ali	Mohamed	MALE	qIFRE48x06xXjtl	Tania11@hotmail.com	6	/static/images/avatars/avatar_4.png	2	4	2	student	4	4	0	1
+98	a72a2069-7539-447e-9646-af87612477a6	2021-06-21 01:03:46.487	2021-06-21 01:03:46.489	Abdelrahman	Ali	MALE	4XLA3pIKgatvAUn	Sonya46@gmail.com	3	/static/images/avatars/avatar_5.png	3	4	1	student	4	4	0	1
+99	e661a4c1-b40b-48f8-b680-becbb33457ca	2021-06-21 01:03:46.487	2021-06-21 01:03:46.489	Hussin	Ali	MALE	0h0A9EYIzKIcCac	Rachael.Rowe7@gmail.com	9	/static/images/avatars/avatar_4.png	1	4	3	student	4	4	0	1
+100	c8eec2dc-cf32-486e-8844-a96791dac83e	2021-06-21 01:03:46.487	2021-06-21 01:03:46.489	Sameh	Sameh	MALE	Pr1gbFD8A0RveAF	Christy_Goldner@yahoo.com	4	/static/images/avatars/avatar_5.png	3	5	9	student	4	4	0	1
+101	6583be8f-04f6-40ba-ae72-8e9376c3b796	2021-07-03 21:18:21.877	1970-01-01 00:00:00	test	test	MALE	fdfd	test@gmail.com	1	/static/images/avatars/avatar_4	\N	\N	1	student	4	4	0	1
+102	113ddde7-f14b-4108-934e-3057e35b4aaa	2021-07-04 16:20:00.76	2021-07-04 16:20:00.761	test	test	MALE	9_UaRTOAzwi2kiA	testtest@yahoo.com	9	/static/images/avatars/avatar_4	\N	\N	1	student	4	4	0	1
+1	5c1212a5-5599-4d43-adff-f9b34df42b21	2021-06-21 01:03:46.474	2021-07-04 18:44:56.897	Ali	Sameh	MALE	0b7Ce0tZKxqnIEx	Isabell_Altenwerth96@gmail.com	9	/static/images/avatars/avatar_4.png	2	3	1	student	3.860606060606061	2.85	0	1
 \.
 
 
@@ -980,6 +978,9 @@ d6e5f139-60be-4988-8674-562be26238bc	2524dc4bfb8d482f00f6df23ca1f64f570069d8655a
 07ab4818-b006-4803-9217-35dd8a21469a	ae41e26cb9047bc2b0d3da2edaa0e6046336dc2346074b13bda936128a9524a7	2021-07-04 00:49:12.969587+02	20210703224912_addclosedstatusforsemester	\N	\N	2021-07-04 00:49:12.895356+02	1
 097e4f2a-b209-492b-8301-1c2350e42d72	2d434442d5a3a4ffcdced5d6e44c03b4ce179ae3f13c5b99605a01ac30d7246b	2021-07-04 16:49:57.528157+02	20210704144957_defaultsemester_gpa_initial	\N	\N	2021-07-04 16:49:57.47245+02	1
 087af622-b5f5-4110-93be-1ea604a6dbf6	d38cce4dd2499122e219bad6ff76c9cf70ec11331712b0e61a8e6e5e939d15fd	2021-07-04 21:12:21.553655+02	20210704191221_removestudent_credit_have	\N	\N	2021-07-04 21:12:21.518184+02	1
+c2afa1a7-7830-481a-b229-ff1f85e9ada3	91f5dbb7f6c6922b5add01f96badfe0adf88a73ec09858ba5be727c8f745ce30	2021-07-04 22:20:07.280289+02	20210704202007_resetlevel	\N	\N	2021-07-04 22:20:07.251935+02	1
+7bdd3dbc-0603-4a1e-8940-2b5dd770f1cc	6184e3baf8f250016757f0a4634afb75bc43299a7a36143b062c43924cfa1726	2021-07-04 22:04:04.731858+02	20210704200404_remove_gpa	\N	\N	2021-07-04 22:04:04.703831+02	1
+20bd336d-d34b-4154-b10e-8f9be2870100	d862919440ba84f25de5895150e0a581415a2537080fd91504d49473a0587251	2021-07-04 22:20:48.80141+02	20210704202048_resetlevel2	\N	\N	2021-07-04 22:20:48.774547+02	1
 \.
 
 
