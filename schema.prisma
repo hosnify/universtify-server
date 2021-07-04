@@ -48,9 +48,7 @@ model Student {
   supervisorId         Int?
   supervisor           Supervisor?       @relation(fields: [supervisorId], references: [id])
   coursesFinished      FinishedCourses[]
-  GPA                  String?           @default("A")
   numericalGPA         Float             @default(4)
-  lastTermGPA          String?           @default("A")
   numericalLastTermGPA Float?            @default(4)
   avatar               String?           @default("/static/images/avatars/avatar_4")
   enrollments          Enrollment[]
