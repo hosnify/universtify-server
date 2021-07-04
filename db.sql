@@ -839,7 +839,7 @@ COPY public."Student" (id, "uniCode", "createdAt", "updatedAt", fname, lname, ge
 100	c8eec2dc-cf32-486e-8844-a96791dac83e	2021-06-21 01:03:46.487	2021-06-21 01:03:46.489	Sameh	Sameh	MALE	Pr1gbFD8A0RveAF	Christy_Goldner@yahoo.com	4	/static/images/avatars/avatar_5.png	3	5	9	student	4	4	0	1
 101	6583be8f-04f6-40ba-ae72-8e9376c3b796	2021-07-03 21:18:21.877	1970-01-01 00:00:00	test	test	MALE	fdfd	test@gmail.com	1	/static/images/avatars/avatar_4	\N	\N	1	student	4	4	0	1
 102	113ddde7-f14b-4108-934e-3057e35b4aaa	2021-07-04 16:20:00.76	2021-07-04 16:20:00.761	test	test	MALE	9_UaRTOAzwi2kiA	testtest@yahoo.com	9	/static/images/avatars/avatar_4	\N	\N	1	student	4	4	0	1
-1	5c1212a5-5599-4d43-adff-f9b34df42b21	2021-06-21 01:03:46.474	2021-07-04 18:44:56.897	Ali	Sameh	MALE	0b7Ce0tZKxqnIEx	Isabell_Altenwerth96@gmail.com	9	/static/images/avatars/avatar_4.png	2	3	1	student	3.860606060606061	2.85	0	1
+1	5c1212a5-5599-4d43-adff-f9b34df42b21	2021-06-21 01:03:46.474	2021-07-04 20:27:18.508	Ali	Sameh	MALE	0b7Ce0tZKxqnIEx	Isabell_Altenwerth96@gmail.com	9	/static/images/avatars/avatar_4.png	2	3	1	student	4	4	0	1
 \.
 
 
