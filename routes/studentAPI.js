@@ -47,6 +47,7 @@ router.get("/students", async (req, res) => {
         notifications: { orderBy: [{ createdAt: "desc" }] },
         major: true,
         minor: true,
+        semesters: true,
       },
       orderBy: [{ id: "asc" }],
     });
@@ -90,11 +91,12 @@ router.get("/student/:id", async (req, res) => {
     const student = await prisma.student.findUnique({
       where: { id: Number(id) },
       include: {
-        coursesFinished: { include: { course: true } },
+        coursesFinished: { include: { course: true, instructor: true } },
         enrollments: true,
         notifications: { orderBy: [{ createdAt: "desc" }] },
         major: true,
         minor: true,
+        semesters: { where: { semester: { status: "open" } } },
       },
     });
     res.json(student);
@@ -152,6 +154,30 @@ router.get("/student/:id/enrollments", async (req, res) => {
     res.json(studentEnrollments);
   } catch (err) {
     res.json({ error: "wrong data", errMsg: err.message });
+  }
+});
+
+//UPDATE student
+router.put("/student/:id", async (req, res) => {
+  const { id } = req.params;
+  const { fname, lname, email, majorId, minorId, supervisorId, coordinatorId } =
+    req.body;
+  try {
+    const updatedStudent = await prisma.student.update({
+      where: { id: Number(id) || undefined },
+      data: {
+        fname,
+        lname,
+        email,
+        majorId: majorId ? Number(majorId) : majorId,
+        minorId: minorId ? Number(minorId) : minorId,
+        supervisorId: Number(supervisorId),
+        coordinatorId: Number(coordinatorId),
+      },
+    });
+    res.json(updatedStudent);
+  } catch (error) {
+    res.json({ error: `student with ID ${id} does not exist in the database` });
   }
 });
 
