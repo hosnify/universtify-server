@@ -13,6 +13,7 @@
   "license": "ISC",
   "devDependencies": {
     "faker": "^5.5.3",
+    "nodemon": "^2.0.9",
     "prisma": "^2.25.0"
   },
   "dependencies": {
