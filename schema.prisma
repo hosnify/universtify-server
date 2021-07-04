@@ -52,7 +52,7 @@ model Student {
   GPA                  String?           @default("A")
   numericalGPA         Float             @default(4)
   lastTermGPA          String?           @default("A")
-  numericalLastTermGPA Float             @default(4)
+  numericalLastTermGPA Float?            @default(4)
   avatar               String?           @default("/static/images/avatars/avatar_4")
   enrollments          Enrollment[]
   notifications        Notifications[]
@@ -66,22 +66,24 @@ model Student {
 }
 
 model Supervisor {
-  id            Int             @id @default(autoincrement())
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  fname         String          @db.VarChar(255)
-  lname         String          @db.VarChar(255)
-  phone         String?
-  gender        Gender?
-  password      String?         @default(uuid())
-  email         String          @unique
-  role          String          @default("supervisor")
-  avatar        String?
-  students      Student[]
-  enrollments   Enrollment[]
-  notifications Notifications[]
-  coordinatorId Int?
-  coordinator   Coordinator?    @relation(fields: [coordinatorId], references: [id])
+  id              Int               @id @default(autoincrement())
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  fname           String            @db.VarChar(255)
+  lname           String            @db.VarChar(255)
+  phone           String?
+  gender          Gender?
+  password        String?           @default(uuid())
+  email           String            @unique
+  role            String            @default("supervisor")
+  avatar          String?
+  students        Student[]
+  enrollments     Enrollment[]
+  courses         Course[]
+  finishedCourses FinishedCourses[]
+  notifications   Notifications[]
+  coordinatorId   Int?
+  coordinator     Coordinator?      @relation(fields: [coordinatorId], references: [id])
 }
 
 model Coordinator {
@@ -126,6 +128,8 @@ model Course {
   minor            Major?            @relation("MinorCourses", fields: [minorId], references: [id])
   coordinatorId    Int?
   coordinator      Coordinator?      @relation(fields: [coordinatorId], references: [id])
+  instructor       Supervisor?       @relation(fields: [instructorId], references: [id])
+  instructorId     Int?
 }
 
 model Enrollment {
@@ -147,18 +151,19 @@ model Enrollment {
 }
 
 model FinishedCourses {
-  id             Int              @id @default(autoincrement())
-  course         Course           @relation(fields: [courseId], references: [id])
-  courseId       Int
-  student        Student          @relation(fields: [studentID], references: [id])
-  studentID      Int
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-  grade          Float?
-  credit         Int?
-  instructorName String?
-  semester       StudentSemester? @relation(fields: [studentID, semesterId], references: [studentId, semesterId])
-  semesterId     Int?
+  id           Int              @id @default(autoincrement())
+  course       Course           @relation(fields: [courseId], references: [id])
+  courseId     Int
+  student      Student          @relation(fields: [studentID], references: [id])
+  studentID    Int
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  grade        Float?
+  credit       Int?
+  semester     StudentSemester? @relation(fields: [studentID, semesterId], references: [studentId, semesterId])
+  semesterId   Int?
+  instructor   Supervisor?      @relation(fields: [instructorId], references: [id])
+  instructorId Int?
 }
 
 model StudentSemester {
@@ -168,7 +173,7 @@ model StudentSemester {
   studentId       Int
   semester        Semester          @relation(fields: [semesterId], references: [id])
   semesterId      Int
-  semesterGPA     Float?
+  semesterGPA     Float?            @default(4)
   creditDone      Int?              @default(0)
   creditHave      Int?              @default(18)
   FinishedCourses FinishedCourses[]
@@ -204,6 +209,7 @@ enum SemesterType {
 
 enum SemesterStatus {
   open
+  closed
   current
   finished
 }
