@@ -43,8 +43,7 @@ model Student {
   password             String?           @default(uuid())
   email                String            @unique
   level                Int?              @default(1)
-  creditDone           Int?              @default(0)
-  creditHave           Int?              @default(18)
+  creditDone           Int               @default(0)
   role                 String            @default("student")
   supervisorId         Int?
   supervisor           Supervisor?       @relation(fields: [supervisorId], references: [id])
