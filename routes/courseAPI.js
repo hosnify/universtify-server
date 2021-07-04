@@ -16,6 +16,7 @@ router.get("/courses", async (req, res) => {
               select: {
                 id: true,
                 name: true,
+                instructorId: true,
               },
             },
             student: {
@@ -37,6 +38,13 @@ router.get("/courses", async (req, res) => {
         },
         major: true,
         minor: true,
+        instructor: {
+          select: {
+            id: true,
+            fname: true,
+            lname: true,
+          },
+        },
       },
     });
     res.json(courses);
@@ -51,7 +59,17 @@ router.get("/course/:id", async (req, res) => {
   try {
     const course = await prisma.course.findUnique({
       where: { id: Number(id) },
-      include: { major: true, minor: true },
+      include: {
+        major: true,
+        minor: true,
+        instructor: {
+          select: {
+            id: true,
+            fname: true,
+            lname: true,
+          },
+        },
+      },
     });
     res.json(course);
   } catch (err) {
@@ -72,6 +90,7 @@ router.get("/course/:id/enrollments", async (req, res) => {
               select: {
                 id: true,
                 name: true,
+                instructorId: true,
               },
             },
             student: {
@@ -91,6 +110,13 @@ router.get("/course/:id/enrollments", async (req, res) => {
           },
           orderBy: [{ id: "desc" }],
         },
+        instructor: {
+          select: {
+            id: true,
+            fname: true,
+            lname: true,
+          },
+        },
       },
     });
     res.json(course);
@@ -99,7 +125,7 @@ router.get("/course/:id/enrollments", async (req, res) => {
   }
 });
 
-//GET all courses for spacific level and major
+//GET all courses for spacific level and major // this also will return all non major courses
 router.get("/courses/major/:major/:level", async (req, res) => {
   const { major, level } = req.params;
   try {
@@ -177,6 +203,7 @@ router.post("/course", async (req, res) => {
     coordinatorId,
     type,
     isElective,
+    instructorId,
   } = req.body;
   try {
     const createCourse = await prisma.course.create({
@@ -191,6 +218,7 @@ router.post("/course", async (req, res) => {
         coordinatorId: Number(coordinatorId),
         type: type ? String(type) : type,
         isElective: Boolean(isElective),
+        instructorId: Number(instructorId),
       },
     });
     res.json(createCourse);
@@ -233,7 +261,7 @@ router.put("/course/:id/prerequisites", async (req, res) => {
 router.post("/enrollment/:id/addresult", async (req, res) => {
   const { id } = req.params;
 
-  const { courseId, studentID, grade, instructorName, semesterId, credit } =
+  const { courseId, studentID, grade, semesterId, credit, instructorId } =
     req.body;
   try {
     const createFinishedCourse = await prisma.finishedCourses.create({
@@ -243,7 +271,7 @@ router.post("/enrollment/:id/addresult", async (req, res) => {
         grade: Number(grade),
         semesterId: Number(semesterId),
         credit: Number(credit),
-        instructorName,
+        instructorId: Number(instructorId),
       },
     });
     const deletedEnrollment = await prisma.enrollment.delete({

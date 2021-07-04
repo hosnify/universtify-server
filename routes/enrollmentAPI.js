@@ -121,11 +121,10 @@ router.get("/student/:id/enrolledCourses", async (req, res) => {
 
 //creat enrollment
 router.post("/enrollment", async (req, res) => {
-  const { supervisorId, studentID, courseID, credit, semesterId } = req.body;
+  const { studentID, courseID, credit, semesterId } = req.body;
   try {
     const createenrollment = await prisma.enrollment.create({
       data: {
-        supervisorId: Number(supervisorId),
         studentID: Number(studentID),
         courseID: Number(courseID),
         semesterId: Number(semesterId),
