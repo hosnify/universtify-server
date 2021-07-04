@@ -13,6 +13,9 @@ router.get("/semesters", async (req, res) => {
         students: true,
         enrollments: true,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
     res.json(semester);
   } catch (err) {
@@ -66,7 +69,7 @@ router.put("/semester/:id/end", async (req, res) => {
         },
       })
       .enrollments({
-        where: { status: "approved" },
+        where: { status: "enrolled" },
       });
     if (UnEndedSemesterEnrollments.length > 0) {
       throw new Error(
@@ -114,6 +117,12 @@ router.put("/semester/:id/end", async (req, res) => {
       (semesterGPA * semesterCredit + previousTotalGpa * previousTotalCredit) /
       (semesterCredit + previousTotalCredit);
 
+    const calculateLevel = (creditDone) => {
+      if (creditDone <= 30 && creditDone > 0) return 1;
+      if (creditDone <= 60 && creditDone > 30) return 2;
+      if (creditDone <= 90 && creditDone > 60) return 3;
+      if (creditDone > 90) return 4;
+    };
     students.forEach(
       async ({
         semesterGPA,
@@ -137,6 +146,7 @@ router.put("/semester/:id/end", async (req, res) => {
             creditDone: {
               increment: creditDone,
             },
+            level: calculateLevel(previousCreditDone + creditDone),
           },
         });
       }
@@ -167,6 +177,76 @@ router.put("/semester/:semesterId/course/:courseId", async (req, res) => {
     res.json(updateSemester);
   } catch (err) {
     res.json({ error: "wrong data", errMsg: err.message });
+  }
+});
+
+//update semester => open registration
+router.put("/semester/:semesterId/open", async (req, res) => {
+  const { semesterId } = req.params;
+  try {
+    const updateSemester = await prisma.semester.update({
+      where: {
+        id: Number(semesterId),
+      },
+      data: {
+        status: "open",
+      },
+    });
+
+    res.json(updateSemester);
+  } catch (err) {
+    res.json({ error: "wrong data", errMsg: err.message });
+  }
+});
+//update semester => close registration
+router.put("/semester/:semesterId/close", async (req, res) => {
+  const { semesterId } = req.params;
+  try {
+    const updateSemester = await prisma.semester.update({
+      where: {
+        id: Number(semesterId),
+      },
+      data: {
+        status: "closed",
+      },
+    });
+
+    res.json(updateSemester);
+  } catch (err) {
+    res.json({ error: "wrong data", errMsg: err.message });
+  }
+});
+
+//update semester => start semester
+router.put("/semester/:semesterId/start", async (req, res) => {
+  const { semesterId } = req.params;
+  try {
+    const UnreviewedSemesterEnrollments = await prisma.semester
+      .findUnique({
+        where: {
+          id: Number(semesterId),
+        },
+      })
+      .enrollments({
+        where: { status: "in review" },
+      });
+    if (UnreviewedSemesterEnrollments.length > 0) {
+      throw new Error(
+        "all enrollment in semester must be reviewd (approved or rejected) by advisors first before start semester"
+      );
+    }
+    const updateSemester = await prisma.semester.update({
+      where: {
+        id: Number(semesterId),
+      },
+      data: {
+        status: "current",
+      },
+    });
+
+    res.json(updateSemester);
+  } catch (err) {
+    res.json({ error: err.message });
   }
 });
 module.exports = router;
