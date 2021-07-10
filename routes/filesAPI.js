@@ -54,7 +54,6 @@ router.post("/avatar/upload", (req, res) => {
         res.json("File Uploaded Successfully");
         // This shows the file has beem successfully uploaded
         // The image will be found in the public folder
-        console.log("hi");
       }
     });
   } catch (error) {
