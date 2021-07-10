@@ -45,10 +45,10 @@ app.get("/app/*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "./build", "index.html"));
 });
 async function main() {
-  const server = app.listen(8888, () =>
-    console.log(`
-🚀 Server ready at: http://localhost:8888`)
-  );
+  const PORT = process.env.PORT || 8888;
+  const server = app.listen(PORT, () => {
+    console.log(`app running on port ${PORT}`);
+  });
 }
 
 main()
