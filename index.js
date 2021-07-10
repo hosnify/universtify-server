@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const cors = require("cors");
 const passport = require("./auth");
 const { PrismaClient } = require("@prisma/client");
@@ -12,6 +13,7 @@ const supervisorRouter = require("./routes/supervisorAPI");
 const coordinatorRouter = require("./routes/coordinatorAPI");
 const notificationRouter = require("./routes/notificationAPI");
 const majorRouter = require("./routes/majorAPI");
+const filesAPI = require("./routes/filesAPI");
 
 const prisma = new PrismaClient();
 const app = express();
@@ -29,9 +31,19 @@ app.use(supervisorRouter);
 app.use(coordinatorRouter);
 app.use(notificationRouter);
 app.use(majorRouter);
+app.use(filesAPI);
 
 app.use("/api", authRouter);
 
+app.use(express.static(path.resolve(__dirname, "./build")));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./build", "index.html"));
+});
+
+app.get("/app/*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./build", "index.html"));
+});
 async function main() {
   const server = app.listen(8888, () =>
     console.log(`
