@@ -181,6 +181,24 @@ router.put("/student/:id", async (req, res) => {
   }
 });
 
+//UPDATE avatar of a student
+
+router.put("/student/:id/avatar", async (req, res) => {
+  const { id } = req.params;
+  const { avatar } = req.body;
+  try {
+    const updatedStudent = await prisma.student.update({
+      where: { id: Number(id) || undefined },
+      data: {
+        avatar,
+      },
+    });
+    res.json(updatedStudent);
+  } catch (error) {
+    res.json({ error: `student with ID ${id} does not exist in the database` });
+  }
+});
+
 //UPDATE supervisor of a student
 router.put("/student/:id/supervisor/:supervisorid", async (req, res) => {
   const { id, supervisorid } = req.params;

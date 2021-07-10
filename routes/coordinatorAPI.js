@@ -68,4 +68,24 @@ router.put("/coordinator/:id/password", async (req, res) => {
   }
 });
 
+//UPDATE avatar of a coordinator
+
+router.put("/coordinator/:id/avatar", async (req, res) => {
+  const { id } = req.params;
+  const { avatar } = req.body;
+  try {
+    const updatedcoordinator = await prisma.coordinator.update({
+      where: { id: Number(id) || undefined },
+      data: {
+        avatar,
+      },
+    });
+    res.json(updatedcoordinator);
+  } catch (error) {
+    res.json({
+      error: `coordinator with ID ${id} does not exist in the database`,
+    });
+  }
+});
+
 module.exports = router;

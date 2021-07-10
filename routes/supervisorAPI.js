@@ -69,4 +69,24 @@ router.put("/supervisor/:id/password", async (req, res) => {
   }
 });
 
+//UPDATE avatar of a supervisor
+
+router.put("/supervisor/:id/avatar", async (req, res) => {
+  const { id } = req.params;
+  const { avatar } = req.body;
+  try {
+    const updatedsupervisor = await prisma.supervisor.update({
+      where: { id: Number(id) || undefined },
+      data: {
+        avatar,
+      },
+    });
+    res.json(updatedsupervisor);
+  } catch (error) {
+    res.json({
+      error: `supervisor with ID ${id} does not exist in the database`,
+    });
+  }
+});
+
 module.exports = router;
