@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js",
+    "start": "node index.js",
+    "watch": "nodemon index.js",
     "seed": "npx prisma generate && npx prisma db push && psql -U postgres -d registration -c  \"DROP SCHEMA public CASCADE;\" && psql -U postgres -d registration -c  \"CREATE SCHEMA public;\" && psql -U postgres -d registration -c  \"GRANT ALL ON SCHEMA public TO postgres\" && psql -U postgres -d registration -c  \"GRANT ALL ON SCHEMA public TO public;\" && psql -U postgres -d registration  <db.sql",
     "studio": "npx prisma studio"
   },
@@ -25,6 +26,7 @@
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
     "morgan": "~1.9.1",
+    "multer": "^1.4.2",
     "npm-run-all": "^4.1.5",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
