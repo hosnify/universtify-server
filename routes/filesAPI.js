@@ -42,10 +42,9 @@ var upload = multer({
   },
 }).single("avatar");
 
-try {
-  router.post("/avatar/upload", (req, res) => {
-    // This is the response sent to the user in the browser once the file recieved
-
+router.post("/avatar/upload", (req, res) => {
+  // This is the response sent to the user in the browser once the file recieved
+  try {
     upload(req, res, (err) => {
       if (err) {
         console.log(err, err.message);
@@ -58,10 +57,10 @@ try {
         console.log("hi");
       }
     });
-  });
-} catch (error) {
-  res.json(error);
-  console.log(error);
-}
+  } catch (error) {
+    res.json(error);
+    console.log(error);
+  }
+});
 
 module.exports = router;
