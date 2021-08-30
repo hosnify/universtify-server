@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "postinstall": "cross-var npx prisma generate && npx prisma db push && psql $DATABASE_URL -c  \"DROP SCHEMA public CASCADE;\" && psql $DATABASE_URL -c  \"CREATE SCHEMA public;\" && psql $DATABASE_URL -c  \"GRANT ALL ON SCHEMA public TO postgres\" && psql $DATABASE_URL -c  \"GRANT ALL ON SCHEMA public TO public;\" && psql $DATABASE_URL  <db.sql",
+    "test3": "cross-var npx prisma generate && npx prisma db push && psql $DATABASE_URL -c  \"DROP SCHEMA public CASCADE;\" && psql $DATABASE_URL -c  \"CREATE SCHEMA public;\" && psql $DATABASE_URL -c  \"GRANT ALL ON SCHEMA public TO postgres\" && psql $DATABASE_URL -c  \"GRANT ALL ON SCHEMA public TO public;\" && psql $DATABASE_URL  <db.sql",
     "watch": "nodemon index.js",
+    "test2": "cross-var npx prisma generate && npx prisma db push && psql $DATABASE_URL -c  \"DROP SCHEMA public CASCADE;\" && psql $DATABASE_URL -c  \"CREATE SCHEMA public;\" && psql $DATABASE_URL -c  \"GRANT ALL ON SCHEMA public TO postgres\" && psql $DATABASE_URL -c  \"GRANT ALL ON SCHEMA public TO public;\" && psql $DATABASE_URL  <db.sql",
     "seed": "npx prisma generate && npx prisma db push && psql -U postgres -d registration -c  \"DROP SCHEMA public CASCADE;\" && psql -U postgres -d registration -c  \"CREATE SCHEMA public;\" && psql -U postgres -d registration -c  \"GRANT ALL ON SCHEMA public TO postgres\" && psql -U postgres -d registration -c  \"GRANT ALL ON SCHEMA public TO public;\" && psql -U postgres -d registration  <db.sql",
     "studio": "npx prisma studio"
   },
