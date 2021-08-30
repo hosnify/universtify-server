@@ -11,16 +11,9 @@ pipeline {
             agent {
         docker {
             image 'postgres'
-            args '-p 5432:5432'
-            reuseNode true
-
-        }
+            args '-e POSTGRES_USER=docker -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=docker library/postgres'
+                }
     }
-            steps {
-                sh ' psql -U postgres -c \"CREATE DATABASE myDatabase WITH ENCODING \"UTF8\" ;\" '
-            }
         }
-       
-       
     }
 }
