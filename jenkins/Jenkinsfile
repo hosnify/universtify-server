@@ -11,9 +11,14 @@ pipeline {
             agent {
         docker {
             image 'postgres'
-            args '-e POSTGRES_USER=docker -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=docker library/postgres'
-                }
-    }
+            args '-e POSTGRES_USER=postgres -e POSTGRES_DB=registration library/postgres'
         }
+    }
+            steps {
+                sh "psql -U postgres -d registration -c  \"DROP SCHEMA public CASCADE;\" && psql -U postgres -d registration -c  \"CREATE SCHEMA public;\" && psql -U postgres -d registration -c  \"GRANT ALL ON SCHEMA public TO postgres\" && psql -U postgres -d registration -c  \"GRANT ALL ON SCHEMA public TO public;\" && psql -U postgres -d registration  <db.sql"
+            }
+        }
+       
+       
     }
 }
